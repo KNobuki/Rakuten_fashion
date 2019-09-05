@@ -21,7 +21,7 @@
 	  	<label><input name="Fruit" type="checkbox" value="" />B </label><br> 
 		<label><input name="Fruit" type="checkbox" value="" />C </label><br>
 		<label><input name="Fruit" type="checkbox" value="" />D </label><br>
-		<button>Search</button>
+		<button onclick="sideBarSearch()">Search</button>
 	</div>
 
 	<div id="sr-searchBox">
@@ -29,6 +29,9 @@
 			<input class="form-control" type="text" placeholder="Search Product…">
 		  	<button>Search</button>
 		</form>
+	</div>
+
+	<div id= "searchContent">
 	</div>
 	<div class="footer">
 		<h1>
@@ -49,5 +52,15 @@
 
     function closeNav() {
         document.getElementById("sideNav").style.width = "0";
+    }
+
+     function sideBarSearch() {
+     	console.log(1);
+        var searchContent = document.getElementById("searchContent");
+        for(let i = 0; i < 40; i ++) {
+        	let product = document.createElement("div");
+        	product.style.cssText = "width:100px;height:100px;border:1px solid red; margin: 10px; float:left;";
+            searchContent.appendChild(product);
+        }
     }
 </script>
