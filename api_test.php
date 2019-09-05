@@ -6,10 +6,19 @@
 </head>
 <body>
 <?php
-$rakuten_relust = getRakutenResult('サンダル',1000); // キーワードと最低価格を指定
+$rakuten_relust = getRakutenResult('モンスターエナジー',1); // キーワードと最低価格を指定
 foreach ( (array)$rakuten_relust as $item) :
 ?>
 <?php print_r($item) ?>
+<?php
+$url = $item['url'];
+$keys = parse_url($url); //パース処理
+$path = explode("/", $keys['path']); //分割処理
+$path_arr = array_reverse($path);
+$second_dir = $path_arr[1];
+echo $second_dir;
+?>
+
 <div style='margin-bottom: 20px; padding: 30px; border: 1px solid #000; overflow:hidden;'>
  <div style='float: left;'><img src='<?php echo $item['img']; ?>'></div>
  <div style='float: left; padding: 20px;'>
@@ -37,6 +46,7 @@ $params['applicationId'] = '1066483623417999424'; // アプリID
 $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
 $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
 $params['minPrice'] = $min_price; // 最低価格
+//$params['genreId'] = $genre;
 
 $canonical_string='';
 
@@ -60,7 +70,9 @@ foreach($rakuten_json->Items as $item) {
                     'img' => isset($item->Item->mediumImageUrls[0]->imageUrl) ? (string)$item->Item->mediumImageUrls[0]->imageUrl : '',
                     'price' => (string)$item->Item->itemPrice,
                     'shop' => (string)$item->Item->shopName,
-                    //'itemCode' =>
+                    'itemCode' => (string)$item->Item->itemCode,
+                    'genreId' => (string)$item->Item->genreId,
+                    'tagId' => (string)$item->Item->tagId,
                     );
 }
 
