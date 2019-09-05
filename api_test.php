@@ -6,9 +6,10 @@
 </head>
 <body>
 <?php
-$rakuten_relust = getRakutenResult(); // キーワードと最低価格を指定
+$rakuten_relust = getRakutenResult('サンダル',1000); // キーワードと最低価格を指定
 foreach ( (array)$rakuten_relust as $item) :
 ?>
+<?php print_r($item) ?>
 <div style='margin-bottom: 20px; padding: 30px; border: 1px solid #000; overflow:hidden;'>
  <div style='float: left;'><img src='<?php echo $item['img']; ?>'></div>
  <div style='float: left; padding: 20px;'>
@@ -26,17 +27,16 @@ endforeach;
  
 <?php 
 
-function getRakutenResult() {
+function getRakutenResult($keyword,$min_price) {
 
 // ベースとなるリクエストURL
 $baseurl = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222';
 // リクエストのパラメータ作成
 $params = array();
 $params['applicationId'] = '1066483623417999424'; // アプリID
-//$params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
+$params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
 $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
-//$params['minPrice'] = $min_price; // 最低価格
-$params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
+$params['minPrice'] = $min_price; // 最低価格
 
 $canonical_string='';
 
@@ -60,6 +60,7 @@ foreach($rakuten_json->Items as $item) {
                     'img' => isset($item->Item->mediumImageUrls[0]->imageUrl) ? (string)$item->Item->mediumImageUrls[0]->imageUrl : '',
                     'price' => (string)$item->Item->itemPrice,
                     'shop' => (string)$item->Item->shopName,
+                    //'itemCode' =>
                     );
 }
 
