@@ -28,7 +28,6 @@ foreach ( (array)$rakuten_relust as $item) :
  </div>
  <div>タグ配列：<?php print_r($item['tagIds']); ?></div>
  <div>imageURL：<?php print_r($item['ImageUrls']); ?></div>
- <!--<div>imageURL：<?php print_r($image); ?></div>-->
  <?php
     $imgCnt = 0;
     foreach($item['ImageUrls'] as $images){

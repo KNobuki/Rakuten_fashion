@@ -6,16 +6,15 @@
 </head>
 <body>
 <?php
-$i = 1; $args = [];
+$i = 1;
 $rakuten_relust = getRakutenResult('diesel  靴',5000); // キーワードと最低価格を指定
 foreach ( (array)$rakuten_relust as $item) :
     $test1 = explode("/",$rakuten_relust[$i-1]['url']);
-    $key = in_array($test1[count($test1)-2], $args);
-    if($key){
+    $test2 = explode("/",$rakuten_relust[$i]['url']);
+    if($test1[count($test1)-2] == $test2[count($test2)-2]){
         $i++;
         continue;
     }
-    array_push($args, $test1[count($test1)-2]);
 ?>
 <div style='margin-bottom: 20px; padding: 30px; border: 1px solid #000; overflow:hidden;'>
  <div style='float: left;'><img src='<?php echo $item['img']; ?>'></div>
@@ -27,8 +26,10 @@ foreach ( (array)$rakuten_relust as $item) :
 <div><?php $test = explode("/",$rakuten_relust[$i-1]['url']);
  echo $test[count($test)-2];?></div>
  </div>
-</div>
-<?php
+ <div>タグ配列：<?php print_r($item['tagIds']); ?></div>
+ <div>imageURL：<?php print_r($item['ImageUrls']); ?></div>
+ <!--<div>imageURL：<?php print_r($image); ?></div>-->
+ <?php
     $imgCnt = 0;
     foreach($item['ImageUrls'] as $images){
  ?>
@@ -81,10 +82,18 @@ foreach($rakuten_json->Items as $item) {
                     'img' => isset($item->Item->mediumImageUrls[0]->imageUrl) ? (string)$item->Item->mediumImageUrls[0]->imageUrl : '',
                     'price' => (string)$item->Item->itemPrice,
                     'shop' => (string)$item->Item->shopName,
-                     'tagId' => (array)$item->Item->tagIds,
+                    'tagIds' => (array)$item->Item->tagIds,
+                    'ImageUrls' => (array)$item->Item->mediumImageUrls,
                     );
-    
 }return $items;
+$image = array();
+$i = 0;
+foreach ($item['ImageUrls'] as $images){
+    $image[] = array(
+        $i => isset($images[$i]->imageUrl) ? ((array)$images[$i]->imageUrl):'none',
+    );
+    $i++;
+}return $image;
 }
 
 // RFC3986 形式で URL エンコードする関数
