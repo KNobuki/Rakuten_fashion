@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="CSS/style.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
 
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -78,7 +79,7 @@
         	productName.innerHTML = "slipper";
         	let productPrice = document.createElement("p");
         	productPrice.setAttribute("class", "productPrice");
-        	productPrice.innerHTML = "$ 20";
+        	productPrice.innerHTML = "$20 - $30";
         	let variants = document.createElement("div");
         	variants.setAttribute("class","variants");
         	variants.setAttribute("id", "variants_" + i);
@@ -100,6 +101,7 @@
 			  slidesToScroll: 3,
 			  infinite: true,
 			  speed: 300,
+			  arrows: true,
 			  centerMode: true,
 			  variableWidth: true,
   			  asNavFor: '#productImages_' + i,
