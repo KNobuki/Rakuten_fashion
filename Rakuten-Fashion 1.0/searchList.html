@@ -7,6 +7,13 @@
 <link href="images/favicon.png" rel="icon">
 <link rel="stylesheet" href="CSS/style.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/slick/slick.css">
+
+<script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="plugins/slick/slick.min.js"></script>
+
+
 </head>
 
 <body>
@@ -54,76 +61,62 @@
 
      function sideBarSearch() {
         var searchList = document.getElementById("searchList");
-        for(let i = 0; i < 15; i ++) {
+        for(let i = 0; i < 10; i ++) {
         	let productBox = document.createElement("div");
         	productBox.setAttribute("class", "productbox");
-        	let productImage = document.createElement("img");
-        	productImage.setAttribute("class","productImage");
-        	productImage.setAttribute("src","images/test.jpg");
+        	let productImages = document.createElement("div");
+        	productImages.setAttribute("class","productImages");
+        	productImages.setAttribute("id","productImages_" + i);
+        	for(let j = 0; j < 4; j ++) {
+        		let productImage = document.createElement("img");
+        		productImage.setAttribute("class","productImage");
+        		productImage.setAttribute("src","images/test" + (j+1) +".jpg");
+        		productImages.appendChild(productImage);
+        	}
         	let productName = document.createElement("p");
         	productName.setAttribute("class", "productName");
         	productName.innerHTML = "slipper";
         	let productPrice = document.createElement("p");
         	productPrice.setAttribute("class", "productPrice");
         	productPrice.innerHTML = "$ 20";
+        	let variants = document.createElement("div");
+        	variants.setAttribute("class","variants");
+        	variants.setAttribute("id", "variants_" + i);
+        	for(let k = 0; k < 4; k ++) {
+        		let variant = document.createElement("img");
+        		variant.setAttribute("class","variant");
+        		variant.setAttribute("src","images/test" + (k+1) +".jpg");
+        		variants.appendChild(variant);
+        	}
+        	productBox.appendChild(variants);
         	productBox.appendChild(productName);
-        	productBox.appendChild(productImage);
+        	productBox.appendChild(productImages);
         	productBox.appendChild(productPrice);
             searchList.appendChild(productBox);
+
+            $('#variants_' + i).slick({
+			  infinite: true,
+			  slidesToShow: 3,
+			  slidesToScroll: 3,
+			  infinite: true,
+			  speed: 300,
+			  centerMode: true,
+			  variableWidth: true,
+  			  asNavFor: '#productImages_' + i,
+  			  focusOnSelect: true
+			});
+
+         $('#productImages_' + i).slick({
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			  arrows: false,
+			  fade: true,
+			  asNavFor: '#variants_' + i
+			});
         }
+
+        
     }
 
-    function productVariantsAjax() {
-        var selector = $('.ps-btn'),
-            shoe = $('.productbox');
-        shoe.on('mouseenter', function() {
-            var variants = $(this).find('.ps-shoe__variant');
-            if (variants.children().length === 0) {
-                setTimeout(function() {
-                    $.ajax({
-                        url: "../js/shoe-variants.js",
-                        success: function(data) {
-                            var images = JSON.parse(data);
-                            for (var i in images) {
-                                $('<img src=' + images[i] + '>').appendTo(variants);
-                            }
-                            variants.owlCarousel({
-                                margin: 20,
-                                autoplay: false,
-                                loop: false,
-                                nav: true,
-                                dots: false,
-                                mouseDrag: true,
-                                touchDrag: true,
-                                navSpeed: 1000,
-                                items: 4,
-                                navText: ["<i class='ps-icon-back'></i>", "<i class='ps-icon-next'></i>"],
-                                responsive: {
-                                    0: {
-                                        items: 3
-                                    },
-                                    480: {
-                                        items: 3
-                                    },
-                                    768: {
-                                        items: 3
-                                    },
-                                    992: {
-                                        items: 4
-                                    },
-                                    1200: {
-                                        items: 4
-                                    }
-                                }
-                            });
-                        }
-                    });
-                }, 0);
-
-            }
-            else {
-                return false;
-            }
-        });
-    }
+   
 </script>
