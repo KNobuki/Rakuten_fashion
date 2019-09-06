@@ -7,13 +7,20 @@
 <link href="images/favicon.png" rel="icon">
 <link rel="stylesheet" href="CSS/style.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/slick/slick.css">
+
+<script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="plugins/slick/slick.min.js"></script>
+
+
 </head>
 
 <body>
 	<div class="header">
 	</div>
 
-	<span style="font-size:30px; cursor:pointer" onclick="openNav()">&#9776; Open</span>
+	<span style="font-size:30px; cursor:pointer" onclick="openNav()">&#9776; Detail Search</span>
 
 	<div id="sideNav" class="sidenav">
 	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -24,14 +31,12 @@
 		<button onclick="sideBarSearch()">Search</button>
 	</div>
 
-	<div id="sr-searchBox">
-		<form class="ps-search--header" action="do_action" method="post">
+	<div class="siderbar-search-box">
 			<input class="form-control" type="text" placeholder="Search Product…">
 		  	<button>Search</button>
-		</form>
 	</div>
 
-	<div id= "searchContent">
+	<div id= "searchList">
 	</div>
 	<div class="footer">
 		<h1>
@@ -55,12 +60,63 @@
     }
 
      function sideBarSearch() {
-     	console.log(1);
-        var searchContent = document.getElementById("searchContent");
-        for(let i = 0; i < 40; i ++) {
-        	let product = document.createElement("div");
-        	product.style.cssText = "width:100px;height:100px;border:1px solid red; margin: 10px; float:left;";
-            searchContent.appendChild(product);
+        var searchList = document.getElementById("searchList");
+        for(let i = 0; i < 10; i ++) {
+        	let productBox = document.createElement("div");
+        	productBox.setAttribute("class", "productbox");
+        	let productImages = document.createElement("div");
+        	productImages.setAttribute("class","productImages");
+        	productImages.setAttribute("id","productImages_" + i);
+        	for(let j = 0; j < 4; j ++) {
+        		let productImage = document.createElement("img");
+        		productImage.setAttribute("class","productImage");
+        		productImage.setAttribute("src","images/test" + (j+1) +".jpg");
+        		productImages.appendChild(productImage);
+        	}
+        	let productName = document.createElement("p");
+        	productName.setAttribute("class", "productName");
+        	productName.innerHTML = "slipper";
+        	let productPrice = document.createElement("p");
+        	productPrice.setAttribute("class", "productPrice");
+        	productPrice.innerHTML = "$ 20";
+        	let variants = document.createElement("div");
+        	variants.setAttribute("class","variants");
+        	variants.setAttribute("id", "variants_" + i);
+        	for(let k = 0; k < 4; k ++) {
+        		let variant = document.createElement("img");
+        		variant.setAttribute("class","variant");
+        		variant.setAttribute("src","images/test" + (k+1) +".jpg");
+        		variants.appendChild(variant);
+        	}
+        	productBox.appendChild(variants);
+        	productBox.appendChild(productName);
+        	productBox.appendChild(productImages);
+        	productBox.appendChild(productPrice);
+            searchList.appendChild(productBox);
+
+            $('#variants_' + i).slick({
+			  infinite: true,
+			  slidesToShow: 3,
+			  slidesToScroll: 3,
+			  infinite: true,
+			  speed: 300,
+			  centerMode: true,
+			  variableWidth: true,
+  			  asNavFor: '#productImages_' + i,
+  			  focusOnSelect: true
+			});
+
+         $('#productImages_' + i).slick({
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			  arrows: false,
+			  fade: true,
+			  asNavFor: '#variants_' + i
+			});
         }
+
+        
     }
+
+   
 </script>
