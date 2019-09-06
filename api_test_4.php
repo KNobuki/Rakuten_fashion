@@ -6,15 +6,16 @@
 </head>
 <body>
 <?php
-$i = 1;
+$i = 1; $args = [];
 $rakuten_relust = getRakutenResult('diesel  靴',5000); // キーワードと最低価格を指定
 foreach ( (array)$rakuten_relust as $item) :
     $test1 = explode("/",$rakuten_relust[$i-1]['url']);
-    $test2 = explode("/",$rakuten_relust[$i]['url']);
-    if($test1[count($test1)-2] == $test2[count($test2)-2]){
+    $key = in_array($test1[count($test1)-2], $args);
+    if($key){
         $i++;
         continue;
     }
+    array_push($args, $test1[count($test1)-2]);
 ?>
 <div style='margin-bottom: 20px; padding: 30px; border: 1px solid #000; overflow:hidden;'>
  <div style='float: left;'><img src='<?php echo $item['img']; ?>'></div>
