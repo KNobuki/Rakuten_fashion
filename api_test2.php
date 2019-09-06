@@ -68,7 +68,6 @@
 
 	</div>
 
-
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.10/angular-locale_ja-jp.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
@@ -117,7 +116,6 @@
 					//keyword       : keyword,
 					genreId       : genre
 				};
-
 				// APIをコールする
 				$http.jsonp(api, { params: params })
 				.success(function(result) {

@@ -87,3 +87,8 @@
     font-size: 36px;
     margin-left: 50px;
 }
+
+#searchContent {
+	width: 1000px;
+	height: 800px;
+}
