@@ -6,12 +6,14 @@
 <title>Rakuten Fashion</title>
 <link href="images/favicon.png" rel="icon">
 <link rel="stylesheet" href="CSS/style.css">
+<link rel="stylesheet" href="CSS/bootstrap.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="js/slick/slick-theme.css" rel="stylesheet" type="text/css">
 <link href="js/slick/slick.css" rel="stylesheet" type="text/css">
-<link href="CSS/takestyle.css" rel="stylesheet" type="text/css">
+<link href="CSS/style.css" rel="stylesheet" type="text/css">
+<!-- <link href="CSS/nobustyle.css" rel="stylesheet" type="text/css"> -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-<script type="text/javascript" src="js/slick/slick.min.js"></script>
+<script type="text/javascript" src="plugins/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 </head>
 
@@ -38,14 +40,47 @@
 	</div>
 
 	<div id="content">
-		<script type="text/javascript">
-			let img = document.createElement("img");
-			img.src = "images/サンダル(サンプル).jpg";
-			document.getElementById('content').appendChild(img);
-			let description = document.createElement("span");
-			description.innerText = "商品紹介文";
-			document.getElementById('content').appendChild(description);
+		<div class="container">
+			<div id="itemDetail" class="row">
+				<div id="itemImg" class="col-6">
+					<script type="text/javascript">
+						let img = document.createElement("img");
+						img.src = "images/サンダル(サンプル).jpg";
+						img.setAttribute("class", "img-fluid");
+						document.getElementById('itemImg').appendChild(img);
+					</script>
+				</div>
+				<div id="itemDesc" class="col-6">
+					<script type="text/javascript">
+						let description = document.getElementById("itemDesc");
+						description.innerText = "商品紹介文:hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
+					</script>
+				</div>
+			</div>
+		</div>
+		<div id="compareItem">
+			<script type="text/javascript">
+			for (let i = 0; i < 10; i++) {
+				let itemInfo = document.createElement("div");
+				itemInfo.setAttribute("class", "itemInfo");
+				document.getElementById("compareItem").appendChild(itemInfo);
+				let price = document.createElement("p");
+				price.innerText = "Price:" + "20$";
+				let shippingFee = document.createElement("p");
+				shippingFee.innerText = "Shipping Fee:" + "1$";
+				let point = document.createElement("p");
+				point.innerText = "Point:" + "10P";
+				let purchase = document.createElement("form");
+				let button = document.createElement("button");
+				button.innerText = "Purchase";
+				purchase.appendChild(button);
+				itemInfo.appendChild(price);
+				itemInfo.appendChild(shippingFee);
+				itemInfo.appendChild(point);
+				itemInfo.appendChild(purchase);
+			}
 		</script>
+		</div>
 	</div>
 
 	<ul class="slider">
