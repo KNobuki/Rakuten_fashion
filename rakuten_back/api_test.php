@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang='ja'>
+<html lang="en">
 <head>
-<title>楽天商品検索API テスト</title>
-<meta charset='utf-8'>
+<meta charset="utf-8">
+<meta name="author" content="Rakuten Fashion Dev Team">
+<title>Rakuten Fashion</title>
+<link href="images/favicon.png" rel="icon">
+<link rel="stylesheet" href="CSS/style.css">
+<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="js/slick/slick-theme.css" rel="stylesheet" type="text/css">
+<link href="js/slick/slick.css" rel="stylesheet" type="text/css">
+<link href="CSS/takestyle.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script type="text/javascript" src="js/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </head>
+
 <body>
 <?php
     $i = 1; $args = [];
@@ -17,18 +28,41 @@
     }
     array_push($args, $test1[count($test1)-2]);
     ?>
-<div style='margin-bottom: 20px; padding: 30px; border: 1px solid #000; overflow:hidden;'>
+
+    <ul class="slider">
+    <?php
+        $imgCnt = 0;
+        foreach($item['ImageUrls'] as $images){
+    ?>
+        <li><a href=""><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+    <?php
+        $imgCnt++;
+        }
+    ?>
+    </ul>
+    <ul class="thumb">
+    <?php
+        $imgCnt = 0;
+        foreach($item['ImageUrls'] as $images){
+    ?>
+        <li><a href="#"><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+<?php
+        $imgCnt++;
+        }
+    ?>
+        <?php
+        for($i=count($item['ImageUrls']); $i<=4; $i++){
+    ?>
+        <li></li>
+<?php
+        }
+    ?>
+    </ul>
+
+    <div style='margin-bottom: 20px; padding: 30px; border: 1px solid #000; overflow:hidden;'>
 <div style='float: left;'><img src='<?php echo $item['img']; ?>'></div>
 <div style='float: left; padding: 20px;'>
-<?php
-    $imgCnt = 0;
-    foreach($item['ImageUrls'] as $images){
-        ?>
-<div>画像；<img src='<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>'></div>
-<?php
-    $imgCnt++;
-    }
-    ?>
+
 <div><?php echo $item['name']; ?></div>
 <div><a href='<?php echo $item['url']; ?>' target="_blank"><?php echo $item['url']; ?></a></div>
 <div><?php echo $item['price']; ?>円</div>
@@ -114,3 +148,4 @@
     function urlencode_rfc3986($str) {
         return str_replace('%7E', '~', rawurlencode($str));
     }?>
+
