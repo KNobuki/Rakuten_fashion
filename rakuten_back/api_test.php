@@ -84,6 +84,7 @@
     $i++;
     endforeach;
     ?>
+<?php print_r($args) ?>
 </body>
 </html>
 
@@ -98,7 +99,7 @@
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['minPrice'] = $min_price; // 最低価格
-        $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
+        //$params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30; //RBAのデータのみ取得
         
         
@@ -140,9 +141,6 @@
             $i++;
         }return $image;
     }
-    
-    
-    
     
     // RFC3986 形式で URL エンコードする関数
     function urlencode_rfc3986($str) {
