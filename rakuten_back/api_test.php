@@ -34,8 +34,9 @@
 <ul class="slider">
 <?php
     for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
+        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);
         ?>
-<li><a href=""><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+<li><a href=""><img src="<?php echo $explodeImageUrls[0]; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
 <?php
     }
     ?>
@@ -43,8 +44,9 @@
 <ul class="thumb">
 <?php
     for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
+        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);
         ?>
-<li><a href="#"><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+<li><a href="#"><img src="<?php echo $explodeImageUrls[0]; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
 <?php
     }
     ?>
@@ -87,17 +89,9 @@
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['minPrice'] = $min_price; // 最低価格
-<<<<<<< HEAD
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
         $params['page'] = 1;
-=======
-        //$params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
-        $params['hits'] = 30; //RBAのデータのみ取得
-        
-        
-        
->>>>>>> 3ede86b2f3494f63f55d5c9fa2a0f09ac45baa3c
         $canonical_string='';
         
         foreach($params as $k => $v) {
