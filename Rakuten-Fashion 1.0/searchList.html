@@ -13,7 +13,7 @@
 	<div class="header">
 	</div>
 
-	<span style="font-size:30px; cursor:pointer" onclick="openNav()">&#9776; Open</span>
+	<span style="font-size:30px; cursor:pointer" onclick="openNav()">&#9776; Detail Search</span>
 
 	<div id="sideNav" class="sidenav">
 	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -24,14 +24,12 @@
 		<button onclick="sideBarSearch()">Search</button>
 	</div>
 
-	<div id="sr-searchBox">
-		<form class="ps-search--header" action="do_action" method="post">
+	<div class="siderbar-search-box">
 			<input class="form-control" type="text" placeholder="Search Product…">
 		  	<button>Search</button>
-		</form>
 	</div>
 
-	<div id= "searchContent">
+	<div id= "searchList">
 	</div>
 	<div class="footer">
 		<h1>
@@ -55,12 +53,77 @@
     }
 
      function sideBarSearch() {
-     	console.log(1);
-        var searchContent = document.getElementById("searchContent");
-        for(let i = 0; i < 40; i ++) {
-        	let product = document.createElement("div");
-        	product.style.cssText = "width:100px;height:100px;border:1px solid red; margin: 10px; float:left;";
-            searchContent.appendChild(product);
+        var searchList = document.getElementById("searchList");
+        for(let i = 0; i < 15; i ++) {
+        	let productBox = document.createElement("div");
+        	productBox.setAttribute("class", "productbox");
+        	let productImage = document.createElement("img");
+        	productImage.setAttribute("class","productImage");
+        	productImage.setAttribute("src","images/test.jpg");
+        	let productName = document.createElement("p");
+        	productName.setAttribute("class", "productName");
+        	productName.innerHTML = "slipper";
+        	let productPrice = document.createElement("p");
+        	productPrice.setAttribute("class", "productPrice");
+        	productPrice.innerHTML = "$ 20";
+        	productBox.appendChild(productName);
+        	productBox.appendChild(productImage);
+        	productBox.appendChild(productPrice);
+            searchList.appendChild(productBox);
         }
+    }
+
+    function productVariantsAjax() {
+        var selector = $('.ps-btn'),
+            shoe = $('.productbox');
+        shoe.on('mouseenter', function() {
+            var variants = $(this).find('.ps-shoe__variant');
+            if (variants.children().length === 0) {
+                setTimeout(function() {
+                    $.ajax({
+                        url: "../js/shoe-variants.js",
+                        success: function(data) {
+                            var images = JSON.parse(data);
+                            for (var i in images) {
+                                $('<img src=' + images[i] + '>').appendTo(variants);
+                            }
+                            variants.owlCarousel({
+                                margin: 20,
+                                autoplay: false,
+                                loop: false,
+                                nav: true,
+                                dots: false,
+                                mouseDrag: true,
+                                touchDrag: true,
+                                navSpeed: 1000,
+                                items: 4,
+                                navText: ["<i class='ps-icon-back'></i>", "<i class='ps-icon-next'></i>"],
+                                responsive: {
+                                    0: {
+                                        items: 3
+                                    },
+                                    480: {
+                                        items: 3
+                                    },
+                                    768: {
+                                        items: 3
+                                    },
+                                    992: {
+                                        items: 4
+                                    },
+                                    1200: {
+                                        items: 4
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }, 0);
+
+            }
+            else {
+                return false;
+            }
+        });
     }
 </script>
