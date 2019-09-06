@@ -92,3 +92,51 @@
 	width: 1000px;
 	height: 800px;
 }
+
+#itemList {
+	width: 100%;
+	height: auto;
+}
+
+#compareItem {
+	width: 100%;
+	height: auto;
+}
+
+.itemInfo {
+	margin-right: 30px;
+	margin-left: 30px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding-top: 30px;
+	width: 200px;
+	height: 300px;
+	background-color: silver;
+	display: inline-block;
+	font-size: 20px;
+	border-radius: 20%;
+	font-family: Meiryo;
+}
+
+.itemInfo > p {
+	text-align: center;
+}
+
+.itemInfo > form {
+	text-align: center;
+}
+
+#itemDetail {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#itemImg {
+	object-fit: contain;
+}
+
+#itemDesc {
+	font-size: 20px;
+	font-family: Meiryo;
+	word-wrap: break-word;
+}
