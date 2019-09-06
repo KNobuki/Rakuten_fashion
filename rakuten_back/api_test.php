@@ -44,7 +44,7 @@
 <ul class="thumb">
 <?php
     for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
-        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);
+        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
         ?>
 <li><a href="#"><img src="<?php echo $explodeImageUrls[0]; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
 <?php
