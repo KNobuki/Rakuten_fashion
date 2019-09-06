@@ -150,3 +150,7 @@
 	width: 190px;
 	height: 40px;
 }
+
+.slick-prev:before, .slick-next:before {
+	color: #dc143c;
+}
