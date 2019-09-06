@@ -18,10 +18,24 @@
 </head>
 <body>
 <?php
-    $i = 1; $args = [];
     $rakuten_relust = getRakutenResult('diesel  靴',5000); // キーワードと最低価格を指定
     
+    /******複数情報が存在するかを確認するための前準備******/
+    $i = 1; $args = []; $aleadyExistsItemList = [];
+    foreach ( (array)$rakuten_relust as $item) :
+        $test = explode("/",$rakuten_relust[$i-1]['url']);
+        $key2 = in_array($test[count($test)-2], $args);
+        if($key2){
+            $i++;
+            array_push($aleadyExistsItemList, $test[count($test)-2]);
+            continue;
+        }
+        array_push($args, $test[count($test)-2]);
+        $i++;
+        endforeach;
+    /******ここまで******/
     
+    $i = 1; $args = [];
     foreach ( (array)$rakuten_relust as $item) :
     $test1 = explode("/",$rakuten_relust[$i-1]['url']);
     $key = in_array($test1[count($test1)-2], $args);
@@ -67,7 +81,15 @@
     ?></div>
 <div><?php $test = explode("/",$rakuten_relust[$i-1]['url']);
     echo $test[count($test)-2];?></div>
-
+    <div>
+    <?php 
+            $isAlreadyExistItem = in_array($test1[count($test1)-2], $aleadyExistsItemList);
+            echo $isAlreadyExistItem;
+            if ($isAlreadyExistItem){
+                echo '<button>この商品をすべて見る</button>';
+            }
+        ?>
+    </div>
 </div>
 </div>
 <?php
@@ -128,6 +150,7 @@
                              );
             $i++;
         }return $image;
+        print_r($args);
     }
     
     // RFC3986 形式で URL エンコードする関数
