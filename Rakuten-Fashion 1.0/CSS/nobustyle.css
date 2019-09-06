@@ -188,7 +188,7 @@
 
 #itemDetail {
 	margin-top: 50px;
-	margin-bottom: 50px;
+	/*margin-bottom: 50px;*/
 }
 
 #itemImg {
@@ -199,4 +199,17 @@
 	font-size: 20px;
 	font-family: Meiryo;
 	word-wrap: break-word;
+}
+
+#displaySimilarItem {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#similarItem {
+	margin-left: 200px;
+	margin-bottom: 50px;
+	font-size: 25px;
+	width: 200px;
+	height: 100px;
 }

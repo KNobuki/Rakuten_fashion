@@ -151,10 +151,10 @@
 	height: 40px;
 }
 
-<<<<<<< HEAD
 .slick-prev:before, .slick-next:before {
 	color: #dc143c;
-=======
+}
+
 #itemList {
 	width: 100%;
 	height: auto;
@@ -190,7 +190,7 @@
 
 #itemDetail {
 	margin-top: 50px;
-	margin-bottom: 50px;
+	/*margin-bottom: 50px;*/
 }
 
 #itemImg {
@@ -201,5 +201,12 @@
 	font-size: 20px;
 	font-family: Meiryo;
 	word-wrap: break-word;
->>>>>>> c6c003b500fa74a2e20c7aba3424b4a0d7069922
+}
+
+#similarItem {
+	margin-left: 200px;
+	margin-bottom: 50px;
+	font-size: 25px;
+	width: 200px;
+	height: 100px;
 }
