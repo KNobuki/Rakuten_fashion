@@ -18,24 +18,26 @@
 </head>
 <body>
 <?php
+    for($p = 1; $p < 3; $p ++){#取得ページ数指定
+        $i = 1; $args = []; $aleadyExistsItemList = [];
+    $rakuten_relust = getRakutenResult('diesel  靴',5000,$p); // キーワードと最低価格を指定
+
     $i = 1; $args = [];
-    $rakuten_relust = getRakutenResult('diesel  靴',5000); // キーワードと最低価格を指定
-    
-    
     foreach ( (array)$rakuten_relust as $item) :
-    $test1 = explode("/",$rakuten_relust[$i-1]['url']);
-    $key = in_array($test1[count($test1)-2], $args);
-    if($key){
+    $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
+    $is_merge_item = in_array($explode_urls[count($explode_urls)-2], $args);
+    if($is_merge_item){
         $i++;
         continue;
     }
-    array_push($args, $test1[count($test1)-2]);
+    array_push($args, $explode_urls[count($explode_urls)-2]);
     ?>
 <ul class="slider">
 <?php
     for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
+        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);
         ?>
-<li><a href=""><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+<li><a href=""><img src="<?php echo $explodeImageUrls[0]; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
 <?php
     }
     ?>
@@ -43,8 +45,9 @@
 <ul class="thumb">
 <?php
     for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
+        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
         ?>
-<li><a href="#"><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+<li><a href="#"><img src="<?php echo $explodeImageUrls[0]; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
 <?php
     }
     ?>
@@ -65,20 +68,31 @@
     ?></div>
 <div><?php $test = explode("/",$rakuten_relust[$i-1]['url']);
     echo $test[count($test)-2];?></div>
-
+    <div>
+    <?php 
+            $isAlreadyExistItem = in_array($explode_urls[count($explode_urls)-2], $aleadyExistsItemList);
+        
+                echo '<form method="POST" action="detail.php">';
+                echo '<input type="hidden" name="Id" value="'.$test[count($test)-2].'">';
+                echo '<input type="hidden" name="min_price" value="'.'5000'.'">';
+                echo '<button>この商品をすべて見る</button>';
+                echo '</form>';
+        
+        ?>
+    </div>
 </div>
 </div>
 <?php
     $i++;
     endforeach;
+    }
     ?>
-<?php print_r($args) ?>
 </body>
 </html>
 
 <?php
     
-    function getRakutenResult($keyword,$min_price) {
+    function getRakutenResult($keyword,$min_price,$page) {
         
         // ベースとなるリクエストURL
         $baseurl = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222';
@@ -87,17 +101,9 @@
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['minPrice'] = $min_price; // 最低価格
-<<<<<<< HEAD
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
-        $params['page'] = 1;
-=======
-        //$params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
-        $params['hits'] = 30; //RBAのデータのみ取得
-        
-        
-        
->>>>>>> 3ede86b2f3494f63f55d5c9fa2a0f09ac45baa3c
+        $params['page'] = $page;
         $canonical_string='';
         
         foreach($params as $k => $v) {
@@ -111,7 +117,6 @@
         
         // XMLをオブジェクトに代入
         $rakuten_json=json_decode(@file_get_contents($url, true));
-        // XMLをオブジェクトに代入
         
         $items = array();
         foreach($rakuten_json->Items as $item) {

@@ -1,7 +1,11 @@
+<?php
+    $ID = $_POST['Id'];
+    $minPrice = $_POST['min_price'];
+?>
 <!DOCTYPE html>
 <html lang='ja'>
 <head>
-<title>楽天商品検索API テスト</title>
+<title>楽天商品検索API テスト(詳細)</title>
 <meta charset='utf-8'>
 <meta name="author" content="Rakuten Fashion Dev Team">
 <title>Rakuten Fashion</title>
@@ -18,24 +22,23 @@
 </head>
 <body>
 <?php
-    $i = 1; $args = [];
-    $rakuten_relust = getRakutenResult('diesel  靴',5000); // キーワードと最低価格を指定
-    
-    
+    $rakuten_relust = getRakutenResult($ID,$minPrice); // キーワードと最低価格を指定
+
+    $i = 1;
     foreach ( (array)$rakuten_relust as $item) :
-    $test1 = explode("/",$rakuten_relust[$i-1]['url']);
-    $key = in_array($test1[count($test1)-2], $args);
-    if($key){
+    $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
+    $item_id = $explode_urls[count($explode_urls)-2];
+    if($item_id != $ID){
         $i++;
         continue;
     }
-    array_push($args, $test1[count($test1)-2]);
     ?>
 <ul class="slider">
 <?php
     for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
+        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);
         ?>
-<li><a href=""><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+<li><a href=""><img src="<?php echo $explodeImageUrls[0]; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
 <?php
     }
     ?>
@@ -43,8 +46,9 @@
 <ul class="thumb">
 <?php
     for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
+        $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
         ?>
-<li><a href="#"><img src="<?php echo $item['ImageUrls'][$imgCnt]->imageUrl; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
+<li><a href="#"><img src="<?php echo $explodeImageUrls[0]; ?>" alt=<?php echo 'image'.$imgCnt?>></a></li>
 <?php
     }
     ?>
@@ -65,14 +69,12 @@
     ?></div>
 <div><?php $test = explode("/",$rakuten_relust[$i-1]['url']);
     echo $test[count($test)-2];?></div>
-
 </div>
 </div>
 <?php
     $i++;
     endforeach;
     ?>
-<?php print_r($args) ?>
 </body>
 </html>
 
@@ -87,17 +89,9 @@
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['minPrice'] = $min_price; // 最低価格
-<<<<<<< HEAD
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
         $params['page'] = 1;
-=======
-        //$params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
-        $params['hits'] = 30; //RBAのデータのみ取得
-        
-        
-        
->>>>>>> 3ede86b2f3494f63f55d5c9fa2a0f09ac45baa3c
         $canonical_string='';
         
         foreach($params as $k => $v) {
@@ -111,7 +105,6 @@
         
         // XMLをオブジェクトに代入
         $rakuten_json=json_decode(@file_get_contents($url, true));
-        // XMLをオブジェクトに代入
         
         $items = array();
         foreach($rakuten_json->Items as $item) {
@@ -133,6 +126,7 @@
                              );
             $i++;
         }return $image;
+        print_r($args);
     }
     
     // RFC3986 形式で URL エンコードする関数

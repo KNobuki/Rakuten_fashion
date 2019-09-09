@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="author" content="Rakuten Fashion Dev Team">
+<title>Rakuten Fashion</title>
+<link href="images/favicon.png" rel="icon">
+<link rel="stylesheet" href="CSS/style.css">
+<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="plugins/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
+<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
+
+<script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="plugins/slick/slick.min.js"></script>
+
+
+</head>
+
+<body>
+	<div class="header">
+		<span style="font-size:20px; cursor:pointer" onclick="openNav()">&#9776; </span>
+		<span id="logo">Rakuten Fashion</span>
+		<div class="siderbar-search-box" id="searchTop">
+				<input class="form-control" type="text" placeholder="Search Product…">
+			  	<button class="btn btn-default" style="width: 70px;">Search</button>
+		</div>
+	</div>
+
+	<div id="sideNav" class="sidenav">
+	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  	<label><input name="Fruit" type="checkbox" value="" />A </label><br> 
+	  	<label><input name="Fruit" type="checkbox" value="" />B </label><br> 
+		<label><input name="Fruit" type="checkbox" value="" />C </label><br>
+		<label><input name="Fruit" type="checkbox" value="" />D </label><br>
+		<button onclick="sideBarSearch()">Search</button>
+	</div>
+
+	<!-- <div class="siderbar-search-box">
+			<input class="form-control" type="text" placeholder="Search Product…">
+		  	<button>Search</button>
+	</div> -->
+
+	<div id= "searchList">
+	</div>
+	<div class="footer">
+		<h1>
+			Rakuten Fashion
+		</h1>
+		<a target="_blank" href="https://brandavenue.rakuten.co.jp/">Rakuten BrandAvenue</a>
+	</div>
+	
+</body>
+
+</html>
+
+<script>
+
+    function openNav() {
+        document.getElementById("sideNav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("sideNav").style.width = "0";
+    }
+
+     function sideBarSearch() {
+        var searchList = document.getElementById("searchList");
+        for(let i = 0; i < 10; i ++) {
+        	let productBox = document.createElement("div");
+        	productBox.setAttribute("class", "productbox");
+        	let productImages = document.createElement("div");
+        	productImages.setAttribute("class","productImages");
+        	productImages.setAttribute("id","productImages_" + i);
+        	for(let j = 0; j < 4; j ++) {
+        		let productImage = document.createElement("img");
+        		productImage.setAttribute("class","productImage");
+        		productImage.setAttribute("src","images/test" + (j+1) +".jpg");
+        		productImages.appendChild(productImage);
+        	}
+        	let productName = document.createElement("p");
+        	productName.setAttribute("class", "productName");
+        	productName.innerHTML = "slipper";
+        	let productPrice = document.createElement("p");
+        	productPrice.setAttribute("class", "productPrice");
+        	productPrice.innerHTML = "$20 - $30";
+        	let variants = document.createElement("div");
+        	variants.setAttribute("class","variants");
+        	variants.setAttribute("id", "variants_" + i);
+        	for(let k = 0; k < 4; k ++) {
+        		let variant = document.createElement("img");
+        		variant.setAttribute("class","variant");
+        		variant.setAttribute("src","images/test" + (k+1) +".jpg");
+        		variants.appendChild(variant);
+        	}
+        	productBox.appendChild(variants);
+        	productBox.appendChild(productName);
+        	productBox.appendChild(productImages);
+        	productBox.appendChild(productPrice);
+            searchList.appendChild(productBox);
+
+            $('#variants_' + i).slick({
+			  infinite: true,
+			  slidesToShow: 3,
+			  slidesToScroll: 3,
+			  infinite: true,
+			  speed: 300,
+			  arrows: true,
+			  centerMode: true,
+			  variableWidth: true,
+  			  asNavFor: '#productImages_' + i,
+  			  focusOnSelect: true
+			});
+
+         $('#productImages_' + i).slick({
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			  arrows: false,
+			  fade: true,
+			  asNavFor: '#variants_' + i
+			});
+        }
+
+        
+    }
+
+   
+</script>
