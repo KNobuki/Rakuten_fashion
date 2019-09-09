@@ -1,10 +1,17 @@
 #hp-logo{
 	text-align: center;
+	margin-top: 50px;
 }
 
 #hp-searchBox{
 	text-align: center;
 	vertical-align:middel;
+	margin-top: 50px;
+}
+
+.ps-search--header {
+	width: 40%;
+	margin: auto;
 }
 
 #sr-searchBox {
@@ -13,8 +20,14 @@
 	width: 20%;
 }
 
+#searchTop{
+	margin-top: 8px;
+	margin-right: 30px;
+	vertical-align: middle;
+}
+
 .header {
-	background-color: #dc143c;
+	background-color: #bf0000;
 	margin: 0 auto;
 	padding: 0px;
 	height: 50px;
@@ -29,8 +42,8 @@
 }
 
 .footer {
-	background-color: #dc143c;
-	margin: 0 auto;
+	background-color: #bf0000;
+	margin: 30px 0 0 0;
 	padding: 0px;
 	height: 200px;
 	width: 100%;
@@ -50,6 +63,7 @@
 	display: block;
 	text-align: center;
 	font-family: Meiryo;
+	color: silver;
 }
 
 .sidenav {
@@ -59,7 +73,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #dc143c;
+    background-color: #bf0000;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -201,6 +215,11 @@
 	font-size: 20px;
 	font-family: Meiryo;
 	word-wrap: break-word;
+}
+
+#displaySimilarItem {
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 #similarItem {
