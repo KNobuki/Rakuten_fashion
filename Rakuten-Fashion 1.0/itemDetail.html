@@ -13,6 +13,7 @@
 <link href="CSS/style.css" rel="stylesheet" type="text/css">
 <link href="CSS/takestyle.css" rel="stylesheet" type="text/css">
 <link href="CSS/nobustyle.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
@@ -20,14 +21,13 @@
 
 <body>
 	<div class="header">
+		<span style="font-size:20px; cursor:pointer" onclick="openNav()">&#9776; </span>
 		<span id="logo">Rakuten Fashion</span>
 		<div class="siderbar-search-box" id="searchTop">
 				<input class="form-control" type="text" placeholder="Search Product…">
 			  	<button class="btn btn-default" style="width: 70px;">Search</button>
 		</div>
 	</div>
-
-	<span style="font-size:30px; cursor:pointer" onclick="openNav()">&#9776; Open</span>
 
 	<div id="sideNav" class="sidenav">
 	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -42,19 +42,41 @@
 		<div class="container">
 			<div id="itemDetail" class="row">
 				<div id="itemImg" class="col-6">
-					<script type="text/javascript">
+					<!-- <script type="text/javascript">
 						let img = document.createElement("img");
 						img.src = "images/サンダル(サンプル).jpg";
 						img.setAttribute("class", "img-fluid");
 						document.getElementById('itemImg').appendChild(img);
-					</script>
+					</script> -->
+					<ul class="slider">
+				        <li><a href="#"><img src="images/shoe/01.jpg" alt="image01"></a></li>
+				        <li><a href="#"><img src="images/shoe/02.jpg" alt="image02"></a></li>
+				        <li><a href="#"><img src="images/shoe/03.jpg" alt="image03"></a></li>
+				        <li><a href="#"><img src="images/shoe/04.jpg" alt="image04"></a></li>
+				        <li><a href="#"><img src="images/shoe/05.jpg" alt="image05"></a></li>
+				        <li><a href="#"><img src="images/shoe/06.jpg" alt="image06"></a></li>
+				        <li><a href="#"><img src="images/shoe/07.jpg" alt="image07"></a></li>
+				        <li><a href="#"><img src="images/shoe/08.jpg" alt="image08"></a></li>
+				    </ul>
+				    <ul class="thumb">
+				        <li><a href="#"><img src="images/shoe/01.jpg" alt="image01"></a></li>
+				        <li><a href="#"><img src="images/shoe/02.jpg" alt="image02"></a></li>
+				        <li><a href="#"><img src="images/shoe/03.jpg" alt="image03"></a></li>
+				        <li><a href="#"><img src="images/shoe/04.jpg" alt="image04"></a></li>
+				        <li><a href="#"><img src="images/shoe/05.jpg" alt="image05"></a></li>
+				        <li><a href="#"><img src="images/shoe/06.jpg" alt="image06"></a></li>
+				        <li><a href="#"><img src="images/shoe/07.jpg" alt="image07"></a></li>
+				        <li><a href="#"><img src="images/shoe/08.jpg" alt="image08"></a></li>
+				    </ul>
 				</div>
 				<div id="itemDesc" class="col-6">
 					<script type="text/javascript">
 						let theme = document.createElement("h2");
 						theme.innerText = "Description"
+						theme.setAttribute("class", "theme");
 						let description = document.createElement("h3");
 						description.innerText = "hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
+						description.setAttribute("class", "description");
 						itemDesc.appendChild(theme);
 						itemDesc.appendChild(description);
 					</script>

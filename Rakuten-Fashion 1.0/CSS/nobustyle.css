@@ -38,7 +38,8 @@
 	margin-left: 10px;
 	color: white;
 	font-size: 30px;
-	font-family: Meiryo;
+	/*font-family: Meiryo;*/
+	font-family: Alegreya Sans SC;
 }
 
 .footer {
@@ -160,6 +161,7 @@
 }
 
 .variants {
+	margin:0 auto;
 	width: 190px;
 	height: 40px;
 }
@@ -216,6 +218,7 @@
 #itemDesc {
 	font-size: 20px;
 	font-family: Meiryo;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
 	word-wrap: break-word;
 }
 
@@ -231,4 +234,12 @@
 	width: 170px;
 	height: 80px;
 	margin-top: 50px;
+}
+
+.theme {
+
+}
+
+.description {
+	line-height: 1.4em;
 }
