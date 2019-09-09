@@ -1,7 +1,11 @@
+<?php
+    $ID = $_POST['Id'];
+    $minPrice = $_POST['min_price'];
+?>
 <!DOCTYPE html>
 <html lang='ja'>
 <head>
-<title>楽天商品検索API テスト</title>
+<title>楽天商品検索API テスト(詳細)</title>
 <meta charset='utf-8'>
 <meta name="author" content="Rakuten Fashion Dev Team">
 <title>Rakuten Fashion</title>
@@ -18,32 +22,11 @@
 </head>
 <body>
 <?php
-    $rakuten_relust = getRakutenResult('diesel  靴',5000); // キーワードと最低価格を指定
-    
-    /******複数情報が存在するかを確認するための前準備******/
-    $i = 1; $args = []; $aleadyExistsItemList = [];
-    foreach ( (array)$rakuten_relust as $item) :
-        $test = explode("/",$rakuten_relust[$i-1]['url']);
-        $key2 = in_array($test[count($test)-2], $args);
-        if($key2){
-            $i++;
-            array_push($aleadyExistsItemList, $test[count($test)-2]);
-            continue;
-        }
-        array_push($args, $test[count($test)-2]);
-        $i++;
-        endforeach;
-    /******ここまで******/
+    $rakuten_relust = getRakutenResult($ID,$minPrice); // キーワードと最低価格を指定
 
-    $i = 1; $args = [];
+    $i = 1;
     foreach ( (array)$rakuten_relust as $item) :
     $test1 = explode("/",$rakuten_relust[$i-1]['url']);
-    $key = in_array($test1[count($test1)-2], $args);
-    if($key){
-        $i++;
-        continue;
-    }
-    array_push($args, $test1[count($test1)-2]);
     ?>
 <ul class="slider">
 <?php
@@ -81,19 +64,6 @@
     ?></div>
 <div><?php $test = explode("/",$rakuten_relust[$i-1]['url']);
     echo $test[count($test)-2];?></div>
-    <div>
-    <?php 
-            $isAlreadyExistItem = in_array($test1[count($test1)-2], $aleadyExistsItemList);
-            echo $isAlreadyExistItem;
-            if ($isAlreadyExistItem){
-                echo '<form method="POST" action="detail.php">';
-                echo '<input type="hidden" name="Id" value="'.$test[count($test)-2].'">';
-                echo '<input type="hidden" name="min_price" value="'.'5000'.'">';
-                echo '<button>この商品をすべて見る</button>';
-                echo '</form>';
-            }
-        ?>
-    </div>
 </div>
 </div>
 <?php
@@ -132,6 +102,7 @@
         // XMLをオブジェクトに代入
         $rakuten_json=json_decode(@file_get_contents($url, true));
         // XMLをオブジェクトに代入
+        $rakuten_json2=json_decode(@file_get_contents($tag_url, true));
         
         $items = array();
         foreach($rakuten_json->Items as $item) {
