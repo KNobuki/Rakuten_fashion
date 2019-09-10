@@ -76,19 +76,15 @@ foreach ( (array)$rakuten_tag as $tag) :
 <?php
 #########詳細ジャンル表示##############################################################################
 #########詳細検索用##############################################################################
-    echo $item['Genre'];
-    $rakuten_genre = search_genre($item['Genre']);
-    foreach ( (array)$rakuten_genre as $genre) :
-    print_r($genre['parent']);
-    endforeach;
+    // echo $item['Genre'];
+    // $rakuten_genre = search_genre($item['Genre']);
+    //  print_r($rakuten_genre);
  
 
 #########URL, Price表示##############################################################################   ?>
 
 <div><a href='<?php echo $item['url']; ?>' target="_blank"><?php echo $item['url']; ?></a></div>
 <div><?php echo $item['price']; ?>円</div>
-<div><?php echo $i; ?></div>
-
 <div><?php
 ########カラー名表示##############################################################################
     $color_code = [];
@@ -244,12 +240,12 @@ endforeach;
         // XMLをオブジェクトに代入
         $rakuten_json=json_decode(@file_get_contents($url, true));
         
-        $tags = array();
-        foreach($rakuten_json->tagGroups as $tag) {
-            $tags[] = array(
-                            'parent' => (array)$tag->tagGroup->tags[0],
+        $genres = array();
+        foreach($rakuten_json->tagGroups as $genre) {
+            $genres[] = array(
+                            'parent' => (array)$genre->tagGroup->tags[0],
                             );
-        }return $tags;
+        }return $genres;
         
     }
     
