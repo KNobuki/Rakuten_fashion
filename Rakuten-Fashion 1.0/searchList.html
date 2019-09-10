@@ -166,7 +166,7 @@
     let keyWord = LocString.split("=");
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../test.php?keyWord="+keyWord[1], true);
+    xhr.open("GET","../json_output.php?keyWord="+keyWord[1], true);
     xhr.onload = function(){
         alert(this.responseText);
     }
