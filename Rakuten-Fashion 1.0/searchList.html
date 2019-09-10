@@ -5,12 +5,13 @@
 <meta name="author" content="Rakuten Fashion Dev Team">
 <title>Rakuten Fashion</title>
 <link href="images/favicon.png" rel="icon">
+<link rel="stylesheet" href="CSS/style.css">
+<link rel="stylesheet" href="CSS/bootstrap-slider.min.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
 <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
-<link rel="stylesheet" href="CSS/style.css">
-
+<script type="text/javascript" src="plugins/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
@@ -34,7 +35,40 @@
 	  	<label><input name="Fruit" type="checkbox" value="" />B </label><br> 
 		<label><input name="Fruit" type="checkbox" value="" />C </label><br>
 		<label><input name="Fruit" type="checkbox" value="" />D </label><br>
-		<button onclick="sideBarSearch()">Search</button>
+        <br>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label" for="formGroupInputSmall">label</label>
+            <div class="col-sm-10">
+                <select class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label" for="formGroupInputSmall">label</label>
+            <div class="col-sm-10">
+                <select class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div style="text-align:center"><input id="priceRange" type="text"/></div>    
+        <br>
+        <br>
+		<button class="btn btn-default center-block " onclick="sideBarSearch()">Search</button>
 	</div>
 
 	<!-- <div class="siderbar-search-box">
@@ -56,6 +90,7 @@
 </html>
 
 <script>
+    new Slider("#priceRange", { min: 0, max: 1000, value: [0, 1000], focus: true });
 
     function openNav() {
         document.getElementById("sideNav").style.width = "250px";
@@ -68,26 +103,22 @@
      function sideBarSearch() {
         var searchList = document.getElementById("searchList");
         let itemNumber = 10;
-        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 360 + "px;");
+        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
         	let productBox = document.createElement("div");
         	productBox.setAttribute("class", "productbox");
         	let productImages = document.createElement("div");
         	productImages.setAttribute("class","productImages");
         	productImages.setAttribute("id","productImages_" + i);
-        	let a = document.createElement("a");
-        	a.setAttribute("href", "itemDetail.html");
         	for(let j = 0; j < 4; j ++) {
         		let productImage = document.createElement("img");
         		productImage.setAttribute("class","productImage");
-        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
-        		productImage.setAttribute("href", "itemDetail.html");
+        		productImage.setAttribute("src","images/test" + (j+1) +".jpg");
         		productImages.appendChild(productImage);
         	}
-        	a.appendChild(productImages);
         	let productName = document.createElement("p");
         	productName.setAttribute("class", "productName");
-        	productName.innerHTML = "shoe";
+        	productName.innerHTML = "slipper";
         	let productPrice = document.createElement("p");
         	productPrice.setAttribute("class", "productPrice");
         	productPrice.innerHTML = "$20 - $30";
@@ -97,12 +128,12 @@
         	for(let k = 0; k < 4; k ++) {
         		let variant = document.createElement("img");
         		variant.setAttribute("class","variant");
-        		variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
+        		variant.setAttribute("src","images/test" + (k+1) +".jpg");
         		variants.appendChild(variant);
         	}
-        	productBox.appendChild(a);
         	productBox.appendChild(variants);
         	productBox.appendChild(productName);
+        	productBox.appendChild(productImages);
         	productBox.appendChild(productPrice);
             searchList.appendChild(productBox);
 
@@ -126,10 +157,19 @@
 			  fade: true,
 			  asNavFor: '#variants_' + i
 			});
-        }
+        }      
+}
+</script>
 
-        
+<script>
+    var LocString=String(window.document.location.href);
+    let keyWord = LocString.split("=");
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET","../test.php?keyWord="+keyWord[1], true);
+    xhr.onload = function(){
+        alert(this.responseText);
     }
+    xhr.send();
 
-   
 </script>
