@@ -1,17 +1,10 @@
 #hp-logo{
 	text-align: center;
-	margin-top: 50px;
 }
 
 #hp-searchBox{
 	text-align: center;
 	vertical-align:middel;
-	margin-top: 50px;
-}
-
-.ps-search--header {
-	width: 40%;
-	margin: auto;
 }
 
 #sr-searchBox {
@@ -20,14 +13,8 @@
 	width: 20%;
 }
 
-#searchTop{
-	margin-top: 8px;
-	margin-right: 30px;
-	vertical-align: middle;
-}
-
 .header {
-	background-color: #bf0000;
+	background-color: #dc143c;
 	margin: 0 auto;
 	padding: 0px;
 	height: 50px;
@@ -38,13 +25,12 @@
 	margin-left: 10px;
 	color: white;
 	font-size: 30px;
-	/*font-family: Meiryo;*/
-	font-family: Alegreya Sans SC;
+	font-family: Meiryo;
 }
 
 .footer {
-	background-color: #bf0000;
-	margin: 30px 0 0 0;
+	background-color: #dc143c;
+	margin: 0 auto;
 	padding: 0px;
 	height: 200px;
 	width: 100%;
@@ -64,7 +50,6 @@
 	display: block;
 	text-align: center;
 	font-family: Meiryo;
-	color: silver;
 }
 
 .sidenav {
@@ -74,7 +59,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #bf0000;
+    background-color: #dc143c;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -123,14 +108,14 @@
 
 
 #searchList {
-	width: 100%;
-	height: 400px;
+	width: 1400px;
+	height: 1000px;
 }
 
 .productbox {
 	width:250px;
-	height:280px;
-	/*border:2px solid black; */
+	height:320px;
+	border:2px solid black; 
 	margin: 30px;
 	float:left;
 }
@@ -139,7 +124,6 @@
 	width:200px;
 	height:200px; 
 	margin:0 auto;
-	margin-bottom: 5px;
 }
 
 .productImage {
@@ -147,18 +131,13 @@
 
 .productName{
 	align:center;
-	vertical-align: middle;
 	text-align: center;
-	font-size: 16px;
-	margin-top: 5px;
-	margin-bottom: 5px;
 }
 
 .productPrice{
 	align:center;
 	text-align: center;
 	font-size:20px;
-	color: #e73656;
 }
 
 .variant {
@@ -170,79 +149,4 @@
 	margin:0 auto;
 	width: 190px;
 	height: 40px;
-}
-
-.slick-prev:before, .slick-next:before {
-	color: #dc143c;
-}
-
-#itemList {
-	width: 100%;
-	height: auto;
-}
-
-#compareItem {
-	width: 100%;
-	height: auto;
-	overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-}
-
-.itemInfo {
-	margin-right: 30px;
-	margin-left: 30px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	padding-top: 60px;
-	width: 200px;
-	height: 300px;
-	/*background-color: aliceblue;*/
-	display: inline-block;
-	font-size: 20px;
-	border-radius: 20%;
-	font-family: Meiryo;
-}
-
-.itemInfo > p {
-	text-align: center;
-}
-
-.itemInfo > form {
-	text-align: center;
-}
-
-#itemDetail {
-	margin-top: 50px;
-	/*margin-bottom: 50px;*/
-}
-
-#itemImg {
-	object-fit: contain;
-}
-
-#itemDesc {
-	font-size: 20px;
-	font-family: Meiryo;
-	word-wrap: break-word;
-}
-
-#displaySimilarItem {
-	margin-top: 50px;
-	margin-bottom: 50px;
-}
-
-#similarItem {
-	margin-left: 0px;
-	margin-bottom: 50px;
-	font-size: 20px;
-	width: 170px;
-	height: 80px;
-	margin-top: 50px;
-}
-
-.slick-prev:before,
-.slick-next:before
-{
-    color: gray;
 }
