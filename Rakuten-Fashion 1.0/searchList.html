@@ -67,7 +67,9 @@
 
      function sideBarSearch() {
         var searchList = document.getElementById("searchList");
-        for(let i = 0; i < 10; i ++) {
+        let itemNumber = 10;
+        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
+        for(let i = 0; i < itemNumber; i ++) {
         	let productBox = document.createElement("div");
         	productBox.setAttribute("class", "productbox");
         	let productImages = document.createElement("div");
