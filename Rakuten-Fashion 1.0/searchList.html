@@ -5,11 +5,11 @@
 <meta name="author" content="Rakuten Fashion Dev Team">
 <title>Rakuten Fashion</title>
 <link href="images/favicon.png" rel="icon">
-<link rel="stylesheet" href="CSS/style.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
 <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
+<link rel="stylesheet" href="CSS/style.css">
 
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -68,19 +68,23 @@
      function sideBarSearch() {
         var searchList = document.getElementById("searchList");
         let itemNumber = 10;
-        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
+        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 360 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
         	let productBox = document.createElement("div");
         	productBox.setAttribute("class", "productbox");
         	let productImages = document.createElement("div");
         	productImages.setAttribute("class","productImages");
         	productImages.setAttribute("id","productImages_" + i);
+        	let a = document.createElement("a");
+        	a.setAttribute("href", "itemDetail.html");
         	for(let j = 0; j < 4; j ++) {
         		let productImage = document.createElement("img");
         		productImage.setAttribute("class","productImage");
-        		productImage.setAttribute("src","images/test" + (j+1) +".jpg");
+        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
+        		productImage.setAttribute("href", "itemDetail.html");
         		productImages.appendChild(productImage);
         	}
+        	a.appendChild(productImages);
         	let productName = document.createElement("p");
         	productName.setAttribute("class", "productName");
         	productName.innerHTML = "slipper";
@@ -93,12 +97,12 @@
         	for(let k = 0; k < 4; k ++) {
         		let variant = document.createElement("img");
         		variant.setAttribute("class","variant");
-        		variant.setAttribute("src","images/test" + (k+1) +".jpg");
+        		variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
         		variants.appendChild(variant);
         	}
+        	productBox.appendChild(a);
         	productBox.appendChild(variants);
         	productBox.appendChild(productName);
-        	productBox.appendChild(productImages);
         	productBox.appendChild(productPrice);
             searchList.appendChild(productBox);
 
