@@ -44,59 +44,15 @@
 		<div class="container">
 			<div id="itemDetail" class="row">
 				<div id="itemImg" class="col-6">
-				    <script type="text/javascript">
-				    	let itemImg = document.getElementById("itemImg");
-			        	let productImages = document.createElement("div");
-			        	productImages.setAttribute("class","tempImages");
-			        	productImages.setAttribute("id","productImages_" + "0");
-			        	for(let j = 0; j < 8; j ++) {
-			        		let productImage = document.createElement("img");
-			        		productImage.setAttribute("class","productImage");
-			        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
-			        		productImages.appendChild(productImage);
-			        	}
-			        	let variants = document.createElement("div");
-			        	variants.setAttribute("class","itemOptions");
-			        	variants.setAttribute("id", "variants_" + "0");
-			        	for(let k = 0; k < 8; k ++) {
-			        		let variant = document.createElement("img");
-			        		variant.setAttribute("class","itemOption");
-			        		variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
-			        		variants.appendChild(variant);
-			        	}
-			        	itemImg.appendChild(productImages);
-			        	itemImg.appendChild(variants);
-
-			            $('#variants_' + "0").slick({
-						  infinite: true,
-						  slidesToShow: 3,
-						  slidesToScroll: 3,
-						  infinite: true,
-						  speed: 300,
-						  arrows: true,
-						  centerMode: true,
-						  variableWidth: true,
-			  			  asNavFor: '#productImages_' + "0",
-			  			  focusOnSelect: true
-						});
-
-   			            $('#productImages_' + "0").slick({
-						  slidesToShow: 1,
-						  slidesToScroll: 1,
-						  arrows: false,
-						  fade: true,
-						  asNavFor: '#variants_' + "0"
-						});
-				    </script>
 					<ul class="slider">
 				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/01.jpg" data-zoom-image="./images/shoe/01.jpg" width="200" height="200" alt="image01"></a></li>
 				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/02.jpg" data-zoom-image="./images/shoe/02.jpg" width="200" height="200" alt="image02"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/03.jpg" data-zoom-image="./images/shoe/03.jpg" width="200" height="200" alt="image03"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/04.jpg" data-zoom-image="./images/shoe/04.jpg" width="200" height="200" alt="image04"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/05.jpg" data-zoom-image="./images/shoe/05.jpg" width="200" height="200" alt="image05"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/06.jpg" data-zoom-image="./images/shoe/06.jpg" width="200" height="200" alt="image06"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/07.jpg" data-zoom-image="./images/shoe/07.jpg" width="200" height="200" alt="image07"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/08.jpg" data-zoom-image="./images/shoe/08.jpg" width="200" height="200" alt="image08"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/03.jpg" data-zoom-image="./images/shoe/03.jpg" width="200" height="200" alt="image03"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/04.jpg" data-zoom-image="./images/shoe/04.jpg" width="200" height="200" alt="image04"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/05.jpg" data-zoom-image="./images/shoe/05.jpg" width="200" height="200" alt="image05"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/06.jpg" data-zoom-image="./images/shoe/06.jpg" width="200" height="200" alt="image06"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/07.jpg" data-zoom-image="./images/shoe/07.jpg" width="200" height="200" alt="image07"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/08.jpg" data-zoom-image="./images/shoe/08.jpg" width="200" height="200" alt="image08"></a></li>
 				    </ul>
 				    <ul class="thumb">
 				        <li><a href="#"><img src="images/shoe/01.jpg" alt="image01"></a></li>
@@ -140,20 +96,17 @@
 				let itemInfo = document.createElement("div");
 				itemInfo.setAttribute("class", "itemInfo");
 				document.getElementById("compareItem").appendChild(itemInfo);
-				let shopName = document.createElement("h3");
-				shopName.innerText = "SHOP" + (i + 1);
-				let price = document.createElement("h4");
+				let price = document.createElement("p");
 				price.innerText = "Price:" + "20$";
-				let shippingFee = document.createElement("h4");
+				let shippingFee = document.createElement("p");
 				shippingFee.innerText = "Shipping Fee:" + "1$";
-				let point = document.createElement("h4");
+				let point = document.createElement("p");
 				point.innerText = "Point:" + "10P";
 				let purchase = document.createElement("form");
 				let button = document.createElement("button");
 				button.innerText = "Purchase";
 				button.setAttribute("class", "btn btn-default");
 				purchase.appendChild(button);
-				itemInfo.appendChild(shopName);
 				itemInfo.appendChild(price);
 				itemInfo.appendChild(shippingFee);
 				itemInfo.appendChild(point);
@@ -162,6 +115,7 @@
 		</script>
 		</div>
 	</div>
+
 
 	<div class="footer">
 		<h1>
@@ -186,8 +140,17 @@
 </script>
 <script>
     // マウスホイールでズームの大きさを変更して表示
-    $("#elevatezoomAble").elevateZoom({
+    // $('.slider img').on('hover', function(){
+    //     $(this).elevateZoom();
+    // });
+    $('.slider img').elevateZoom({
         scrollZoom : true
     });
+    // $("#elevatezoomAble1").elevateZoom({
+    //     scrollZoom : true
+    // });
+    // $("#elevatezoomAble2").elevateZoom({
+    //     scrollZoom : true
+    // });
 </script>
 
