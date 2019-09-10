@@ -9,6 +9,7 @@
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
+<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
 
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -19,9 +20,13 @@
 
 <body>
 	<div class="header">
+		<span style="font-size:20px; cursor:pointer" onclick="openNav()">&#9776; </span>
+		<span id="logo">Rakuten Fashion</span>
+		<div class="siderbar-search-box" id="searchTop">
+				<input class="form-control" type="text" placeholder="Search Product…">
+			  	<button class="btn btn-default" style="width: 70px;">Search</button>
+		</div>
 	</div>
-
-	<span style="font-size:30px; cursor:pointer" onclick="openNav()">&#9776; Detail Search</span>
 
 	<div id="sideNav" class="sidenav">
 	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -32,10 +37,10 @@
 		<button onclick="sideBarSearch()">Search</button>
 	</div>
 
-	<div class="siderbar-search-box">
+	<!-- <div class="siderbar-search-box">
 			<input class="form-control" type="text" placeholder="Search Product…">
 		  	<button>Search</button>
-	</div>
+	</div> -->
 
 	<div id= "searchList">
 	</div>
@@ -62,7 +67,13 @@
 
      function sideBarSearch() {
         var searchList = document.getElementById("searchList");
+<<<<<<< HEAD
         for(let i = 0; i < 8; i ++) {
+=======
+        let itemNumber = 10;
+        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
+        for(let i = 0; i < itemNumber; i ++) {
+>>>>>>> abb470e76637217a9d034741865eff72e83a0a5c
         	let productBox = document.createElement("div");
         	productBox.setAttribute("class", "productbox");
         	let productImages = document.createElement("div");

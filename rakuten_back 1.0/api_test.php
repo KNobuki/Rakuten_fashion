@@ -18,32 +18,19 @@
 </head>
 <body>
 <?php
-    $rakuten_relust = getRakutenResult('diesel  靴',5000); // キーワードと最低価格を指定
-    
-    /******複数情報が存在するかを確認するための前準備******/
-    $i = 1; $args = []; $aleadyExistsItemList = [];
-    foreach ( (array)$rakuten_relust as $item) :
-        $test = explode("/",$rakuten_relust[$i-1]['url']);
-        $key2 = in_array($test[count($test)-2], $args);
-        if($key2){
-            $i++;
-            array_push($aleadyExistsItemList, $test[count($test)-2]);
-            continue;
-        }
-        array_push($args, $test[count($test)-2]);
-        $i++;
-        endforeach;
-    /******ここまで******/
+    for($p = 1; $p < 3; $p ++){#取得ページ数指定
+        $i = 1; $args = []; $aleadyExistsItemList = [];
+    $rakuten_relust = getRakutenResult('diesel  靴',5000,$p); // キーワードと最低価格を指定
 
     $i = 1; $args = [];
     foreach ( (array)$rakuten_relust as $item) :
-    $test1 = explode("/",$rakuten_relust[$i-1]['url']);
-    $key = in_array($test1[count($test1)-2], $args);
-    if($key){
+    $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
+    $is_merge_item = in_array($explode_urls[count($explode_urls)-2], $args);
+    if($is_merge_item){
         $i++;
         continue;
     }
-    array_push($args, $test1[count($test1)-2]);
+    array_push($args, $explode_urls[count($explode_urls)-2]);
     ?>
 <ul class="slider">
 <?php
@@ -83,15 +70,14 @@
     echo $test[count($test)-2];?></div>
     <div>
     <?php 
-            $isAlreadyExistItem = in_array($test1[count($test1)-2], $aleadyExistsItemList);
-            echo $isAlreadyExistItem;
-            if ($isAlreadyExistItem){
+            $isAlreadyExistItem = in_array($explode_urls[count($explode_urls)-2], $aleadyExistsItemList);
+        
                 echo '<form method="POST" action="detail.php">';
                 echo '<input type="hidden" name="Id" value="'.$test[count($test)-2].'">';
                 echo '<input type="hidden" name="min_price" value="'.'5000'.'">';
                 echo '<button>この商品をすべて見る</button>';
                 echo '</form>';
-            }
+        
         ?>
     </div>
 </div>
@@ -99,14 +85,14 @@
 <?php
     $i++;
     endforeach;
+    }
     ?>
-<?php print_r($args) ?>
 </body>
 </html>
 
 <?php
     
-    function getRakutenResult($keyword,$min_price) {
+    function getRakutenResult($keyword,$min_price,$page) {
         
         // ベースとなるリクエストURL
         $baseurl = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222';
@@ -117,7 +103,7 @@
         $params['minPrice'] = $min_price; // 最低価格
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
-        $params['page'] = 1;
+        $params['page'] = $page;
         $canonical_string='';
         
         foreach($params as $k => $v) {
@@ -131,7 +117,6 @@
         
         // XMLをオブジェクトに代入
         $rakuten_json=json_decode(@file_get_contents($url, true));
-        // XMLをオブジェクトに代入
         
         $items = array();
         foreach($rakuten_json->Items as $item) {
@@ -153,7 +138,6 @@
                              );
             $i++;
         }return $image;
-        print_r($args);
     }
     
     // RFC3986 形式で URL エンコードする関数
