@@ -21,7 +21,7 @@
 #########同一商品merge##############################################################################
     for($p = 1; $p < 2; $p ++){#取得ページ数指定
         $i = 1; $args = []; $aleadyExistsItemList = [];
-    $rakuten_relust = getRakutenResult('ヴィヴィアン',5000,$p); // キーワードと最低価格を指定
+    $rakuten_relust = getRakutenResult('$_GET['keyWord']',5000,$p); // キーワードと最低価格を指定
 
     $i = 1; $args = [];
     foreach ( (array)$rakuten_relust as $item) :
