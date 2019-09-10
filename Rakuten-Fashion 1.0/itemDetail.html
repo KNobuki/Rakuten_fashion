@@ -70,29 +70,29 @@
 				    </ul> -->
 				    <script type="text/javascript">
 				    	let itemImg = document.getElementById("itemImg");
-				    	let productBox = document.createElement("div");
-			        	productBox.setAttribute("class", "productbox");
+				    	// let productBox = document.createElement("div");
+			      //   	productBox.setAttribute("class", "productbox");
 			        	let productImages = document.createElement("div");
-			        	productImages.setAttribute("class","productImages");
+			        	productImages.setAttribute("class","tempImages");
 			        	productImages.setAttribute("id","productImages_" + "0");
-			        	for(let j = 0; j < 4; j ++) {
+			        	for(let j = 0; j < 8; j ++) {
 			        		let productImage = document.createElement("img");
 			        		productImage.setAttribute("class","productImage");
 			        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
 			        		productImages.appendChild(productImage);
 			        	}
 			        	let variants = document.createElement("div");
-			        	variants.setAttribute("class","variants");
+			        	variants.setAttribute("class","itemOptions");
 			        	variants.setAttribute("id", "variants_" + "0");
-			        	for(let k = 0; k < 4; k ++) {
+			        	for(let k = 0; k < 8; k ++) {
 			        		let variant = document.createElement("img");
-			        		variant.setAttribute("class","variant");
+			        		variant.setAttribute("class","itemOption");
 			        		variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
 			        		variants.appendChild(variant);
 			        	}
-			        	productBox.appendChild(productImages);
-			        	productBox.appendChild(variants);
-			            itemImg.appendChild(productBox);
+			        	itemImg.appendChild(productImages);
+			        	itemImg.appendChild(variants);
+			            // itemImg.appendChild(productBox);
 
 			            $('#variants_' + "0").slick({
 						  infinite: true,
