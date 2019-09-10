@@ -6,11 +6,12 @@
 <title>Rakuten Fashion</title>
 <link href="images/favicon.png" rel="icon">
 <link rel="stylesheet" href="CSS/style.css">
+<link rel="stylesheet" href="CSS/bootstrap-slider.min.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
 <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
-
+<script type="text/javascript" src="plugins/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
@@ -34,7 +35,40 @@
 	  	<label><input name="Fruit" type="checkbox" value="" />B </label><br> 
 		<label><input name="Fruit" type="checkbox" value="" />C </label><br>
 		<label><input name="Fruit" type="checkbox" value="" />D </label><br>
-		<button onclick="sideBarSearch()">Search</button>
+        <br>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label" for="formGroupInputSmall">label</label>
+            <div class="col-sm-10">
+                <select class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label" for="formGroupInputSmall">label</label>
+            <div class="col-sm-10">
+                <select class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div style="text-align:center"><input id="priceRange" type="text"/></div>    
+        <br>
+        <br>
+		<button class="btn btn-default center-block " onclick="sideBarSearch()">Search</button>
 	</div>
 
 	<!-- <div class="siderbar-search-box">
@@ -56,6 +90,7 @@
 </html>
 
 <script>
+    new Slider("#priceRange", { min: 0, max: 1000, value: [0, 1000], focus: true });
 
     function openNav() {
         document.getElementById("sideNav").style.width = "250px";
@@ -131,7 +166,7 @@
     let keyWord = LocString.split("=");
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../test.php?keyWord="+keyWord, true);
+    xhr.open("GET","../test.php?keyWord="+keyWord[1], true);
     xhr.onload = function(){
         alert(this.responseText);
     }
