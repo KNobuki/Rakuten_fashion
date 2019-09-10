@@ -47,12 +47,12 @@
 					<ul class="slider">
 				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/01.jpg" data-zoom-image="./images/shoe/01.jpg" width="200" height="200" alt="image01"></a></li>
 				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/02.jpg" data-zoom-image="./images/shoe/02.jpg" width="200" height="200" alt="image02"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/03.jpg" data-zoom-image="./images/shoe/03.jpg" width="200" height="200" alt="image03"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/04.jpg" data-zoom-image="./images/shoe/04.jpg" width="200" height="200" alt="image04"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/05.jpg" data-zoom-image="./images/shoe/05.jpg" width="200" height="200" alt="image05"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/06.jpg" data-zoom-image="./images/shoe/06.jpg" width="200" height="200" alt="image06"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/07.jpg" data-zoom-image="./images/shoe/07.jpg" width="200" height="200" alt="image07"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="../images/shoe/08.jpg" data-zoom-image="./images/shoe/08.jpg" width="200" height="200" alt="image08"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/03.jpg" data-zoom-image="./images/shoe/03.jpg" width="200" height="200" alt="image03"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/04.jpg" data-zoom-image="./images/shoe/04.jpg" width="200" height="200" alt="image04"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/05.jpg" data-zoom-image="./images/shoe/05.jpg" width="200" height="200" alt="image05"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/06.jpg" data-zoom-image="./images/shoe/06.jpg" width="200" height="200" alt="image06"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/07.jpg" data-zoom-image="./images/shoe/07.jpg" width="200" height="200" alt="image07"></a></li>
+				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/08.jpg" data-zoom-image="./images/shoe/08.jpg" width="200" height="200" alt="image08"></a></li>
 				    </ul>
 				    <ul class="thumb">
 				        <li><a href="#"><img src="images/shoe/01.jpg" alt="image01"></a></li>
@@ -140,8 +140,17 @@
 </script>
 <script>
     // マウスホイールでズームの大きさを変更して表示
-    $("#elevatezoomAble").elevateZoom({
+    // $('.slider img').on('hover', function(){
+    //     $(this).elevateZoom();
+    // });
+    $('.slider img').elevateZoom({
         scrollZoom : true
     });
+    // $("#elevatezoomAble1").elevateZoom({
+    //     scrollZoom : true
+    // });
+    // $("#elevatezoomAble2").elevateZoom({
+    //     scrollZoom : true
+    // });
 </script>
 
