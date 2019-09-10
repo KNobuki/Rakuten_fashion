@@ -67,13 +67,9 @@
 
      function sideBarSearch() {
         var searchList = document.getElementById("searchList");
-<<<<<<< HEAD
-        for(let i = 0; i < 8; i ++) {
-=======
         let itemNumber = 10;
         searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
->>>>>>> abb470e76637217a9d034741865eff72e83a0a5c
         	let productBox = document.createElement("div");
         	productBox.setAttribute("class", "productbox");
         	let productImages = document.createElement("div");
@@ -126,10 +122,6 @@
 			  fade: true,
 			  asNavFor: '#variants_' + i
 			});
-        }
-
-        
-    }
-
-   
+        }      
+}
 </script>
