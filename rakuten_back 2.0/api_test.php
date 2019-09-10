@@ -1,27 +1,9 @@
-<!DOCTYPE html>
-<html lang='ja'>
-<head>
-<title>楽天商品検索API テスト</title>
-<meta charset='utf-8'>
-<meta name="author" content="Rakuten Fashion Dev Team">
-<title>Rakuten Fashion</title>
-<link href="images/favicon.png" rel="icon">
-<link rel="stylesheet" href="CSS/style.css">
-<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link href="js/slick/slick-theme.css" rel="stylesheet" type="text/css">
-<link href="js/slick/slick.css" rel="stylesheet" type="text/css">
-<link href="CSS/takestyle.css" rel="stylesheet" type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-<script type="text/javascript" src="js/slick/slick.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-</head>
-<body>
 
 <?php
 #########同一商品merge##############################################################################
     for($p = 1; $p < 2; $p ++){#取得ページ数指定
         $i = 1; $args = []; $aleadyExistsItemList = [];
-    $rakuten_relust = getRakutenResult('$_GET['keyWord']',5000,$p); // キーワードと最低価格を指定
+    $rakuten_relust = getRakutenResult('ヴィヴィアン',5000,$p); // キーワードと最低価格を指定
 
     $i = 1; $args = [];
     foreach ( (array)$rakuten_relust as $item) :
