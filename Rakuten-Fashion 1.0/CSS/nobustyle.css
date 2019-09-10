@@ -251,3 +251,21 @@
 .price {
 	color: red;
 }
+
+.tempImages {
+	width:300px;
+	height:auto; 
+	margin:0 auto;
+	margin-bottom: 20px;
+}
+
+.itemOptions {
+	margin:0 auto;
+	width: 240px;
+	height: 60px;
+}
+
+.itemOption {
+	height: 60px;
+	width: auto;
+}
