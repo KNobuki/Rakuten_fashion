@@ -18,7 +18,7 @@
 </head>
 <body>
 <?php
-    for($p = 1; $p < 3; $p ++){#取得ページ数指定
+    for($p = 1; $p < 2; $p ++){#取得ページ数指定
         $i = 1; $args = []; $aleadyExistsItemList = [];
     $rakuten_relust = getRakutenResult('diesel  靴',5000,$p); // キーワードと最低価格を指定
 
@@ -52,7 +52,22 @@
     }
     ?>
 </ul>
-<div><?php echo $item['name']; ?></div>
+
+<div><?php
+    foreach((array)$item['tagId'] as $number){
+        for($j = 1000709; $j <= 1000869; $j++){
+            if($number == $j){
+                $T = $number;
+            }
+        }
+    }
+    ?></div>
+<?php
+$rakuten_tag = search_brand($T);
+foreach ( (array)$rakuten_tag as $tag) :
+print_r($tag['tagname']);endforeach;
+?>
+
 <div><a href='<?php echo $item['url']; ?>' target="_blank"><?php echo $item['url']; ?></a></div>
 <div><?php echo $item['price']; ?>円</div>
 <div><?php echo $i; ?></div>
@@ -89,6 +104,8 @@
     ?>
 </body>
 </html>
+
+
 
 <?php
     
@@ -128,6 +145,7 @@
                              'shop' => (string)$item->Item->shopName,
                              'tagId' => (array)$item->Item->tagIds,
                              'ImageUrls' => (array)$item->Item->mediumImageUrls,
+                             'CatchCopy'=> (string)$item->Item->catchcopy,
                              );
         }return $items;
         $image = array();
@@ -138,6 +156,35 @@
                              );
             $i++;
         }return $image;
+    }
+    
+    function search_brand($tagId){
+        // ベースとなるリクエストURL
+        $urls = "https://app.rakuten.co.jp/services/api/IchibaTag/Search/20140222";
+        $params = array();
+        $params['applicationId'] = '1066483623417999424'; // アプリID
+        $params['tagId'] = $tagId; // 任意のキーワード。※文字コードは UTF-8
+        $canonical_string='';
+        
+        foreach($params as $k => $v) {
+            $canonical_string .= '&' . $k . '=' . $v;
+        }
+        // 先頭の'&'を除去
+        $canonical_string = substr($canonical_string, 1);
+        
+        // リクエストURL を作成
+        $url = $urls . '?' . $canonical_string;
+        
+        // XMLをオブジェクトに代入
+        $rakuten_json=json_decode(@file_get_contents($url, true));
+        
+        $tags = array();
+        foreach($rakuten_json->tagGroups as $tag) {
+            $tags[] = array(
+                             'tagname' => (array)$tag->tagGroup->tags,
+                             );
+        }return $tags;
+
     }
     
     // RFC3986 形式で URL エンコードする関数
