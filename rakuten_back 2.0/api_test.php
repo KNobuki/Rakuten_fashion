@@ -21,7 +21,7 @@
 #########同一商品merge##############################################################################
     for($p = 1; $p < 2; $p ++){#取得ページ数指定
         $i = 1; $args = []; $aleadyExistsItemList = [];
-    $rakuten_relust = getRakutenResult('diesel  靴',5000,$p); // キーワードと最低価格を指定
+    $rakuten_relust = getRakutenResult('ヴィヴィアン',5000,$p); // キーワードと最低価格を指定
 
     $i = 1; $args = [];
     foreach ( (array)$rakuten_relust as $item) :
@@ -58,6 +58,7 @@
 
 <div><?php
 #########ブランド名表示##############################################################################
+    $brand_code = 1;
     foreach((array)$item['tagId'] as $number){
         for($j = 1000709; $j <= 1000869; $j++){
             if($number == $j){
@@ -67,11 +68,15 @@
     }
     ?></div>
 <?php
+if($brand_code != 1){
 $rakuten_tag = search_brand($brand_code);
 foreach ( (array)$rakuten_tag as $tag) :
         $tag_array = $tag['tagname'];
     echo $tag_array['tag']->tagName."<br/>";
     endforeach;
+    }else{
+        echo "non-brand";
+    }
 ?>
 <?php
 #########詳細ジャンル表示##############################################################################
