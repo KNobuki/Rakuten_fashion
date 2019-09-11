@@ -249,3 +249,16 @@
     color: gray;
 }
 
+
+#recomandTag {
+	width: 200px;
+	height: 100px;
+}
+
+#recommandLabel {
+	cursor: pointer;
+	width: 80px;
+	height: 20px;
+	float: left;
+}
+

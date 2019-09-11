@@ -29,6 +29,10 @@
 			<br>
 		  	<input class="btn btn-default" type="submit" method = "get" value="submit" action = "sesarchList.html"/>
 		</form>
+
+		<div id="recomandTag">
+		</div>
+
 		<img width="166" height="168.5" src="images/stmp6.gif" alt="" style="margin-top: 20px;">
 	</div>
           
@@ -46,6 +50,14 @@
 <script>
 	$(document).ready(function() {
         $('[data-role="tags-input"]').tagsInput();
+
+        var recomandTag = document.getElementById("recomandTag");
+        for (let i = 0; i < 20; i ++) {
+        	let tag = document.createElement("span");
+        	tag.setAttribute("class", "label label-default recommandLabel");
+        	tag.innerHTML = "Test Tag_" + i;
+        	recomandTag.appendChild(tag);
+        }
     });
 
     document.getElementById("getForm").addEventListener("submit",getForm);
@@ -54,6 +66,10 @@
         let keyWord = document.getElementById('searchKeyWord').value;
         var url = "searchList.html?keyWord="+keyWord;
         window.open(url)
+   }
+
+   function showTag(){
+   		alert("!");
    }
 </script>
 
