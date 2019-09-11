@@ -52,6 +52,7 @@
 			        	for(let j = 0; j < 8; j ++) {
 			        		let productImage = document.createElement("img");
 			        		productImage.setAttribute("class","productImage");
+			        		productImage.setAttribute("id","productImage" + j);
 			        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
 			        		productImages.appendChild(productImage);
 			        	}
@@ -186,18 +187,19 @@
 </script>
 
 <script>
+	
     // マウスホイールでズームの大きさを変更して表示
 // <<<<<<< HEAD
-    $(".productImage").elevateZoom({
-    	scrollZoom : true
-// =======
-    // $('.slider img').on('hover', function(){
-    //     $(this).elevateZoom();
-    });
-    $('.slider img').elevateZoom({
-// >>>>>>> 497f7114648d7ad14f594b6aa3756367066a8503
-        scrollZoom : true
-    });
+//     $(".productImage").elevateZoom({
+//     	scrollZoom : true
+// // =======
+//     // $('.slider img').on('hover', function(){
+//     //     $(this).elevateZoom();
+//     });
+//     $('.slider img').elevateZoom({
+// // >>>>>>> 497f7114648d7ad14f594b6aa3756367066a8503
+//         scrollZoom : true
+//     });
     // $("#elevatezoomAble1").elevateZoom({
     //     scrollZoom : true
     // });
