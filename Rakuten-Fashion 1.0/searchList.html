@@ -23,21 +23,23 @@
 </head>
 
 <body>
-    <div class="header">
-        <span style="font-size:20px; cursor:pointer" onclick="openNav()">&#9776; </span>
-        <span id="logo">Rakuten Fashion</span>
-        <div class="siderbar-search-box" id="searchTop">
-                <input class="form-control" type="text" placeholder="Search Product…">
-                <button class="btn btn-default" style="width: 70px;">Search</button>
-        </div>
-    </div>
+	<div class="header">
+		<span style="font-size:20px; cursor:pointer" onclick="openNav()">&#9776; </span>
+		<span id="logo">Rakuten Fashion</span>
+		<div class="siderbar-search-box" id="searchTop">
+			<form class="sidebar-search-box" id ="getForm">
+                <input class="form-control" type="text" data-role='tags-input'/>
+                <button class="btn btn-default">search<button/>
+        </form>
+		</div>
+	</div>
 
-    <div id="sideNav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <label><input name="Fruit" type="checkbox" value="" />A </label><br> 
-        <label><input name="Fruit" type="checkbox" value="" />B </label><br> 
-        <label><input name="Fruit" type="checkbox" value="" />C </label><br>
-        <label><input name="Fruit" type="checkbox" value="" />D </label><br>
+	<div id="sideNav" class="sidenav">
+	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  	<label><input name="Fruit" type="checkbox" value="" />A </label><br> 
+	  	<label><input name="Fruit" type="checkbox" value="" />B </label><br> 
+		<label><input name="Fruit" type="checkbox" value="" />C </label><br>
+		<label><input name="Fruit" type="checkbox" value="" />D </label><br>
         <br>
         <div class="form-group form-group-sm">
             <label class="col-sm-2 control-label" for="formGroupInputSmall">label</label>
@@ -71,23 +73,23 @@
         <div style="text-align:center"><input id="priceRange" type="text"/></div>    
         <br>
         <br>
-        <button class="btn btn-default center-block " onclick="sideBarSearch()">Search</button>
-    </div>
+		<button class="btn btn-default center-block " onclick="sideBarSearch()">Search</button>
+	</div>
 
-    <!-- <div class="siderbar-search-box">
-            <input class="form-control" type="text" placeholder="Search Product…">
-            <button>Search</button>
-    </div> -->
+	<!-- <div class="siderbar-search-box">
+			<input class="form-control" type="text" placeholder="Search Product…">
+		  	<button>Search</button>
+	</div> -->
 
-    <div id= "searchList">
-    </div>
-    <div class="footer">
-        <h1>
-            Rakuten Fashion
-        </h1>
-        <a target="_blank" href="https://brandavenue.rakuten.co.jp/">Rakuten BrandAvenue</a>
-    </div>
-    
+	<div id= "searchList">
+	</div>
+	<div class="footer">
+		<h1>
+			Rakuten Fashion
+		</h1>
+		<a target="_blank" href="https://brandavenue.rakuten.co.jp/">Rakuten BrandAvenue</a>
+	</div>
+	
 </body>
 
 </html>
@@ -107,72 +109,68 @@
         document.getElementById("sideNav").style.width = "0";
     }
 
-     function sideBarSearch() {
+    function sideBarSearch(jsonObj) {
+
+    }
+
+
+     function indexSearch(jsonObj) {
         var searchList = document.getElementById("searchList");
         let itemNumber = 10;
         searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
-            let productBox = document.createElement("div");
-            productBox.setAttribute("class", "productbox");
-            let productImages = document.createElement("div");
-            productImages.setAttribute("class","productImages");
-            productImages.setAttribute("id","productImages_" + i);
-            for(let j = 0; j < 4; j ++) {
-                let productImage = document.createElement("img");
-                productImage.setAttribute("class","productImage");
-                productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
-                productImages.appendChild(productImage);
-            }
-            let productName = document.createElement("p");
-            productName.setAttribute("class", "productName");
-            productName.innerHTML = "slipper";
-            let productPrice = document.createElement("p");
-            productPrice.setAttribute("class", "productPrice");
-            productPrice.innerHTML = "$20 - $30";
-            let variants = document.createElement("div");
-            variants.setAttribute("class","variants");
-            variants.setAttribute("id", "variants_" + i);
-            for(let k = 0; k < 4; k ++) {
-                let variant = document.createElement("img");
-                variant.setAttribute("class","variant");
-                variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
-                variants.appendChild(variant);
-            }
-            let id = document.createElement("input");
-            id.setAttribute("type", "hidden");
-            id.setAttribute("id", "itemId");
-            id.setAttribute("value", "123456");
-            let a = document.createElement("a");
-            // a.setAttribute("href", "itemDetail.html");
-            a.setAttribute("onclick", "OnLinkClick()");
-            a.appendChild(id);
-            a.appendChild(productImages);
-            productBox.appendChild(a);
-            productBox.appendChild(variants);
-            productBox.appendChild(productName);
-            productBox.appendChild(productPrice);
+        	let productBox = document.createElement("div");
+        	productBox.setAttribute("class", "productbox");
+        	let productImages = document.createElement("div");
+        	productImages.setAttribute("class","productImages");
+        	productImages.setAttribute("id","productImages_" + i);
+        	for(let j = 0; j < jsonObj[i].image.length; j ++) {
+        		let productImage = document.createElement("img");
+        		productImage.setAttribute("class","productImage");
+        		productImage.setAttribute("src", jsonObj[i].image[j].imageUrl);
+        		productImages.appendChild(productImage);
+        	}
+        	let productName = document.createElement("p");
+        	productName.setAttribute("class", "productName");
+        	productName.innerHTML = "slipper";
+        	let productPrice = document.createElement("p");
+        	productPrice.setAttribute("class", "productPrice");
+        	productPrice.innerHTML = jsonObj[i].price;
+        	let variants = document.createElement("div");
+        	variants.setAttribute("class","variants");
+        	variants.setAttribute("id", "variants_" + i);
+        	for(let k = 0; k < jsonObj[i].image.length; k ++) {
+        		let variant = document.createElement("img");
+        		variant.setAttribute("class","variant");
+        		variant.setAttribute("src",jsonObj[i].image[k].imageUrl);
+        		variants.appendChild(variant);
+        	}
+        	productBox.appendChild(productImages);
+        	productBox.appendChild(variants);
+        	productBox.appendChild(productName);
+        	productBox.appendChild(productPrice);
             searchList.appendChild(productBox);
 
             $('#variants_' + i).slick({
-              infinite: true,
-              slidesToShow: 3,
-              slidesToScroll: 3,
-              infinite: true,
-              speed: 300,
-              arrows: true,
-              centerMode: true,
-              variableWidth: true,
-              asNavFor: '#productImages_' + i,
-              focusOnSelect: true
-            });
+			  infinite: true,
+			  slidesToShow: jsonObj[i].image.length,
+			  slidesToScroll: jsonObj[i].image.length,
+			  infinite: true,
+			  speed: 300,
+			  arrows: true,
+			  centerMode: true,
+			  variableWidth: true,
+  			  asNavFor: '#productImages_' + i,
+  			  focusOnSelect: true
+			});
 
          $('#productImages_' + i).slick({
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              arrows: false,
-              fade: true,
-              asNavFor: '#variants_' + i
-            });
+			  slidesToShow: 1,
+			  slidesToScroll: 1,
+			  arrows: false,
+			  fade: true,
+			  asNavFor: '#variants_' + i
+			});
         }      
 }
 </script>
@@ -182,15 +180,12 @@
     let keyWord = LocString.split("=");
     let word = keyWord[1].split(";");
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 3.0/json_output.php?keyWord="+word[0], true);
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+word[0], true);
     xhr.onload = function(){
-        let obj = JSON.parse(this.responseText);
-        console.log(obj);
+        let searchListObj = JSON.parse(this.responseText);
+        console.log(searchListObj);
+        indexSearch(searchListObj);
     }
     xhr.send();
-    function OnLinkClick(){
-        let id = document.getElementById("itemId").value;
-        let url = "itemDetail.html?id=" + id;
-        window.open(url);
-    }
+
 </script>
