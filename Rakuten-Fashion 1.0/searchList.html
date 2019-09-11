@@ -131,7 +131,10 @@
         		variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
         		variants.appendChild(variant);
         	}
-        	productBox.appendChild(productImages);
+    		let a = document.createElement("a");
+    		a.setAttribute("href", "itemDetail.html");
+    		a.appendChild(productImages);
+        	productBox.appendChild(a);
         	productBox.appendChild(variants);
         	productBox.appendChild(productName);
         	productBox.appendChild(productPrice);
