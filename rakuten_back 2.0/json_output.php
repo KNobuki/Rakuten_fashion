@@ -1,21 +1,23 @@
 
 <?php
-    
-   getRakutenResult("サンダル");
-
+    print_r(GoodsMerge("サンダル"));
     ##以下関数定義#########
     ###same goods merge##########################################################
     function GoodsMerge($keyword){
             $i = 1; $MergeList = []; $aleadyExistsItemList = [];
             $rakuten_relust = getRakutenResult($keyword); // キーワードと最低価格を指定
-            foreach ( (array)$rakuten_relust as $item) :
-            $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
-            $is_merge_item = in_array($explode_urls[count($explode_urls)-2], $MergeList);
-            if($is_merge_item){
-                $i++;
-                continue;
-            array_push($MergeList, $explode_urls[count($explode_urls)-2]);
-                return $MergeList;
+            foreach ( (array)$rakuten_relust as $item):
+                $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
+                $is_merge_item = in_array($explode_urls[count($explode_urls)-2], $MergeList);
+                if($is_merge_item){
+                    $i++;
+                    continue;
+                }
+                array_push($MergeList, $explode_urls[count($explode_urls)-2]);
+                array_push($MergeList, $rakuten_relust);
+                $MergeJson = json_encode($MergeList);
+            endforeach;
+            return $MergeJson;
     }
         
     ###goods color name##########################################################
@@ -111,9 +113,9 @@
         }
         $json1 = json_encode($items);
         $json2 = json_encode($images);
-        echo "test";
     }
     
+    #########ブランドAPI検索######################################################################################
      function search_brand($tagId){
      // ベースとなるリクエストURL
      $urls = 'https://app.rakuten.co.jp/services/api/IchibaTag/Search/20140222';

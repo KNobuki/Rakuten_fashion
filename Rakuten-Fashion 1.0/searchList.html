@@ -164,11 +164,12 @@
 <script>
     var LocString=String(window.document.location.href);
     let keyWord = LocString.split("=");
-
+    let word = keyWord[1].split(";");
+    console.log(word[0]);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../json_output.php?keyWord="+keyWord[1], true);
+    xhr.open("GET","../rakuten_back 2.0/json_output.php?keyWord="+word[0], true);
     xhr.onload = function(){
-        alert(this.responseText);
+        console.log(this.responseText);
     }
     xhr.send();
 

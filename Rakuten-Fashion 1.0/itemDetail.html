@@ -89,28 +89,7 @@
 						  asNavFor: '#variants_' + "0"
 						});
 				    </script>
-<!-- =======
-					<ul class="slider">
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/01.jpg" data-zoom-image="./images/shoe/01.jpg" width="200" height="200" alt="image01"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/02.jpg" data-zoom-image="./images/shoe/02.jpg" width="200" height="200" alt="image02"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/03.jpg" data-zoom-image="./images/shoe/03.jpg" width="200" height="200" alt="image03"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/04.jpg" data-zoom-image="./images/shoe/04.jpg" width="200" height="200" alt="image04"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/05.jpg" data-zoom-image="./images/shoe/05.jpg" width="200" height="200" alt="image05"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/06.jpg" data-zoom-image="./images/shoe/06.jpg" width="200" height="200" alt="image06"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/07.jpg" data-zoom-image="./images/shoe/07.jpg" width="200" height="200" alt="image07"></a></li>
-				        <li><a href="#"><img id="elevatezoomAble" src="./images/shoe/08.jpg" data-zoom-image="./images/shoe/08.jpg" width="200" height="200" alt="image08"></a></li>
-				    </ul>
-				    <ul class="thumb">
-				        <li><a href="#"><img src="images/shoe/01.jpg" alt="image01"></a></li>
-				        <li><a href="#"><img src="images/shoe/02.jpg" alt="image02"></a></li>
-				        <li><a href="#"><img src="images/shoe/03.jpg" alt="image03"></a></li>
-				        <li><a href="#"><img src="images/shoe/04.jpg" alt="image04"></a></li>
-				        <li><a href="#"><img src="images/shoe/05.jpg" alt="image05"></a></li>
-				        <li><a href="#"><img src="images/shoe/06.jpg" alt="image06"></a></li>
-				        <li><a href="#"><img src="images/shoe/07.jpg" alt="image07"></a></li>
-				        <li><a href="#"><img src="images/shoe/08.jpg" alt="image08"></a></li>
-				    </ul>
->>>>>>> 497f7114648d7ad14f594b6aa3756367066a8503 -->
+
 				</div>
 				<div id="itemDesc" class="col-6">
 					<script type="text/javascript">
@@ -187,23 +166,9 @@
 </script>
 
 <script>
-	
-    // マウスホイールでズームの大きさを変更して表示
-// <<<<<<< HEAD
-//     $(".productImage").elevateZoom({
-//     	scrollZoom : true
-// // =======
-//     // $('.slider img').on('hover', function(){
-//     //     $(this).elevateZoom();
-//     });
-//     $('.slider img').elevateZoom({
-// // >>>>>>> 497f7114648d7ad14f594b6aa3756367066a8503
-//         scrollZoom : true
-//     });
-    // $("#elevatezoomAble1").elevateZoom({
-    //     scrollZoom : true
-    // });
-    // $("#elevatezoomAble2").elevateZoom({
-    //     scrollZoom : true
-    // });
+	$(".slick-list").hover(function(){
+		$(".slick-active").elevateZoom({
+			scrollZoom:true
+		});
+	});
 </script>
