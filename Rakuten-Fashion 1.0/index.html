@@ -52,9 +52,9 @@
         $('[data-role="tags-input"]').tagsInput();
 
         var recomandTag = document.getElementById("recomandTag");
-        for (let i = 0; i < 20; i ++) {
+        for (let i = 0; i < 12; i ++) {
         	let tag = document.createElement("span");
-        	tag.setAttribute("class", "label label-default recommandLabel");
+        	tag.setAttribute("class", "label label-success recommandLabel");
         	tag.innerHTML = "Test Tag_" + i;
         	recomandTag.appendChild(tag);
         }

@@ -251,11 +251,13 @@
 
 
 #recomandTag {
-	width: 200px;
-	height: 100px;
+	text-align:center;
+	margin:20px auto;
+	width: 500px;
+	height: 50px;
 }
 
-#recommandLabel {
+.recommandLabel {
 	cursor: pointer;
 	width: 80px;
 	height: 20px;
