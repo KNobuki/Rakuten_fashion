@@ -10,11 +10,14 @@
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
 <link rel="stylesheet" href="CSS/style.css">
-<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
+<link rel="stylesheet" href="CSS/jquery-tagsinput.min.css">
+
 <script type="text/javascript" src="plugins/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
+<script src="https://code.jquery.com/color/jquery.color.plus-names-2.1.2.min.js"></script>
+<script src="plugins/jquery-tagsinput.min.js"></script>
 
 
 </head>
@@ -91,6 +94,10 @@
 
 <script>
     new Slider("#priceRange", { min: 0, max: 1000, value: [0, 1000], focus: true });
+
+    $(document).ready(function() {
+        $('[data-role="tags-input"]').tagsInput();
+    });
 
     function openNav() {
         document.getElementById("sideNav").style.width = "250px";
@@ -174,11 +181,9 @@
     var LocString=String(window.document.location.href);
     let keyWord = LocString.split("=");
     let word = keyWord[1].split(";");
-    console.log(word[0]);
     let xhr = new XMLHttpRequest();
     xhr.open("GET","../rakuten_back 3.0/json_output.php?keyWord="+word[0], true);
     xhr.onload = function(){
-        // console.log(this.responseText);
         let obj = JSON.parse(this.responseText);
         console.log(obj);
     }

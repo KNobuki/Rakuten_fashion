@@ -1,15 +1,19 @@
 
 <?php
     //search_brand(1000873);
-    $merge_list = GoodsMerge("diesel 靴",5000);
-    //print_r($merge_list)."<br/>";
-    /*foreach ((array)$merge_list as $item){
-        print_r($item);
-        echo "<br/><br/>";
-    }*/
-    //print_r($merge_list)."<br/>";
-    $Data = DataSet($merge_list);
-        print_r($Data);
+    if(isset($_GET['keyWord'])){
+        $merge_list = GoodsMerge($_GET['keyWord'],5000);
+        //print_r($merge_list)."<br/>";
+        /*foreach ((array)$merge_list as $item){
+            print_r($item);
+            echo "<br/><br/>";
+        }*/
+        //print_r($merge_list)."<br/>";
+        $Data = DataSet($merge_list);
+        ob_clean();
+        echo $Data;
+        }
+    
     
 
 ##以下関数定義#########
