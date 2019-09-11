@@ -1,6 +1,6 @@
 
 <?php
-    $merge_list = GoodsMerge($ID,5000); //$IDに商品IDを渡してあげることで表示を実現
+    $merge_list = GoodsMerge("a-02-8102-1578",5000); //$IDに商品IDを渡してあげることで表示を実現
     $Data = DataSet($merge_list);
         print_r($Data);
 
