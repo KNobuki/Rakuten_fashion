@@ -32,8 +32,8 @@
 
 .itemInfo > h3 {
 	text-align: center;
-	margin-bottom: 20px;
-	color: #e73656;
+	margin-bottom: 30px;
+	font-weight: bold;
 }
 
 .itemInfo > h4 {
@@ -88,7 +88,7 @@
 }
 
 .price {
-	color: #e73656;
+	color: red;
 }
 
 .tempImages {
@@ -107,10 +107,4 @@
 .itemOption {
 	height: 60px;
 	width: auto;
-}
-
-.slick-prev:before,
-.slick-next:before
-{
-    color: gray;
 }
