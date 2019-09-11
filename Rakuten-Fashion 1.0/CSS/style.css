@@ -254,14 +254,14 @@
 	text-align:center;
 	margin:20px auto;
 	width: 700px;
-	height: 50px;
+	height: 100px;
 }
 
 .recommandLabel {
 	cursor: pointer;
-	margin:2px;
+	margin:3px;
 	width: 80px;
-	height: 20px;
+	height: 40px;
 	float: left;
 }
 
