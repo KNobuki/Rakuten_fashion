@@ -249,3 +249,19 @@
     color: gray;
 }
 
+
+#recomandTag {
+	text-align:center;
+	margin:20px auto;
+	width: 700px;
+	height: 50px;
+}
+
+.recommandLabel {
+	cursor: pointer;
+	margin:2px;
+	width: 80px;
+	height: 20px;
+	float: left;
+}
+
