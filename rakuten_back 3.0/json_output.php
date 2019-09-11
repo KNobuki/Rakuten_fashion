@@ -2,7 +2,10 @@
 <?php
     $results_json = getRakutenResult("diesel 靴",5000);
     $merge_json = GoodsMerge("diesel 靴",5000);
-    DataSet($merge_json);
+    $json = DataSet($merge_json);
+    print_r($json);
+    
+##以下関数定義#########
     function DataSet($merge_json){
         $data_map = [];
         foreach ((array)$merge_json as $item){
@@ -41,13 +44,9 @@
         array_push($brand_data_map,$tag_array['tag']->tagName);
         endforeach;
     }else{
-array_push($brand_data_map,"non_color");
+          array_push($brand_data_map,"non_color");
         
-    }            array_push($data_map,$brand_data_map);
-
-            
-            
-            
+    }     array_push($data_map,$brand_data_map);
             $map = array(
                 "url" => $item['url'],
                 "price" =>$item['price'],
@@ -56,13 +55,15 @@ array_push($brand_data_map,"non_color");
                 
                          );
             array_push($data_map,$map);
-        }
+        }/*
         for($i = 0; $i < 20; $i++){
         print_r($data_map[$i])."<br/>";
         echo "<br/>";
-        }
+        }*/
+        $json_data = json_encode($data_map);
+        return $json_data;
     }
-    ##以下関数定義#########
+    
     ###same goods merge##########################################################
     function GoodsMerge($keyword,$min_price){
         $i = 1; $MergeList = []; $aleadyExistsItemList = [];$args = [];
@@ -74,7 +75,6 @@ array_push($brand_data_map,"non_color");
                     $i++;
                     continue;
                 }
-        echo $explode_urls[count($explode_urls)-2]."<br/>";
                 array_push($args, $explode_urls[count($explode_urls)-2]);
                 array_push($MergeList, $item);
         $i++;
