@@ -151,7 +151,7 @@
             id.setAttribute("value", jsonObj[i].id);
             let a = document.createElement("a");
             // a.setAttribute("href", "itemDetail.html");
-            a.setAttribute("onclick", "OnLinkClick()");
+            a.setAttribute("onclick", "OnLinkClick(this)");
             a.appendChild(id);
             a.appendChild(productImages);
             productBox.appendChild(a);
@@ -197,5 +197,11 @@
         indexSearch(searchListObj);
     }
     xhr.send();
+
+    function OnLinkClick(obj){
+        let id = obj.value;
+        let url = "itemDetail.html?id=" + id + ";";
+        window.open(url);
+    }
 
 </script>
