@@ -51,6 +51,7 @@
 			        	for(let j = 0; j < 8; j ++) {
 			        		let productImage = document.createElement("img");
 			        		productImage.setAttribute("class","productImage");
+			        		productImage.setAttribute("id","productImage" + j);
 			        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
 			        		productImages.appendChild(productImage);
 			        	}
@@ -169,5 +170,4 @@
 			scrollZoom:true
 		});
 	});
-
 </script>
