@@ -1,14 +1,36 @@
 
 <?php
-    $results_json = GoodsMerge("7537214908",5000);
-    $json = DataSet($results_json);
-    print_r($json);
-    
+    $merge_list = GoodsMerge($ID,5000); //$IDに商品IDを渡してあげることで表示を実現
+    $Data = DataSet($merge_list);
+        //print_r($Data);
+
 ##以下関数定義#########
-    function DataSet($merge_json){
-        $data_map = [];
-        foreach ((array)$merge_json as $item){
-            $color_code = []; $color_data_map = [];$brand_data_map = [];
+    function DataSet($merge_list){
+        $data_map = []; $costList = [];
+        foreach ((array)$merge_list as $item){
+            array_push($costList,$item['price']);
+            $max_price = max($costList);
+            $min_price = min($costList);
+        }
+        foreach ((array)$merge_list as $item):
+            // 画像の縮小パラメータを除去
+            $imageURL = [];
+            for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
+                $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
+                array_push($imageURL,$explodeImageUrls[0]);
+            }
+            $goodsID = explode("/",$item['url']);
+            $goodsID = $goodsID[count($goodsID)-2];
+            $map = array(///////ここに全部追加
+                     "ID" => $goodsID,
+                     "price" =>$item['price'],
+                     "max_price" => $max_price,
+                     "min_price" => $min_price,
+                     "image" =>$imageURL,
+                     "pointRate" => $item['pointRate'],
+                     "itemCaption" => $item['itemCaption'],
+                     );
+            $color_code = []; $color_map = [];$brand_map = [];
             foreach((array)$item['tagId'] as $number){
                 for($j = 1000873; $j <= 1000887; $j++){
                     if($number == $j){
@@ -18,16 +40,22 @@
             }
             if(count($color_code) > 0){
                 foreach($color_code as $color){
-                    $rakuten_tag = search_brand($color);
-                    foreach ((array)$rakuten_tag as $tag) :
+                    $color_tag = search_brand($color);
+                    foreach ((array)$color_tag as $tag){
                     $tag_array = $tag['tagname'];
-                    array_push($color_data_map,$tag_array['tag']->tagName);
-                    endforeach;
+                    $color_map += array(
+                            "color_name" => $tag_array['tag']->tagName,
+                    );
+                    }
                 }
-            }else{
-                array_push($color_data_map,"non_color");
             }
-            array_push($data_map,$color_data_map);
+            else{
+                $color_map = array(
+                                  "color_name" => "non_color",
+                                  );
+            }
+            
+            
             $brand_code = 1;
             foreach((array)$item['tagId'] as $number){
                 for($j = 1000709; $j <= 1000869; $j++){
@@ -40,107 +68,45 @@
         $rakuten_tag = search_brand($brand_code);
         foreach ( (array)$rakuten_tag as $tag) :
         $tag_array = $tag['tagname'];
-        array_push($brand_data_map,$tag_array['tag']->tagName);
+        $brand_map = array(
+                          "brand_name" => $tag_array['tag']->tagName,
+                          );
         endforeach;
     }else{
-        array_push($brand_data_map,"non_color");
-        //imageが小さくならないようにする
-        print_r($item['ImageUrls']);
-        for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
-            $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
-        }
-        print_r($explodeImageUrls);
-    }     array_push($data_map,$brand_data_map);
-            $map = array(
-                "url" => $item['url'],
-                "price" =>$item['price'],
-                "image" =>$explodeImageUrls[0],
-                "tags" =>$item['tagId'],
-                "pointRate" => $item['pointRate'],
-                "itemCaption" => $item['itemCaption'],
-                         );
-            array_push($data_map,$map);
-        }/*
-        for($i = 0; $i < 20; $i++){
-        print_r($data_map[$i])."<br/>";
-        echo "<br/>";
-        }*/
-        $json_data = json_encode($data_map);
+        $brand_map = array(
+                          "brand_name" => "non_brand",
+                          );
+    }
+            $map += $color_map;
+            $map += $brand_map;
+        array_push($data_map, $map);
+     
+        endforeach;
+        $json_data = json_encode($data_map,JSON_UNESCAPED_UNICODE);
+
         return $json_data;
+       // $json_data = json_encode($map);
+        //return $json_data;
     }
     
     ###same goods merge##########################################################
-    function GoodsMerge($keyword,$min_price){
-
-        $i = 1; $MergeList = []; $args = [];
-            $rakuten_relust = getRakutenResult($keyword,$min_price); // キーワードと最低価格を指定
+    function GoodsMerge($ID,$min_price){
+        $i = 1; $MergeList = [];
+            $rakuten_relust = getRakutenResult($ID,$min_price); // キーワードと最低価格を指定
             foreach ( (array)$rakuten_relust as $item):
                 $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
                 $item_id = $explode_urls[count($explode_urls)-2];
-                if($item_id != $keyword){
+                if($item_id != $ID){
                     $i++;
                     continue;
                 }
-                array_push($args, $explode_urls[count($explode_urls)-2]);
                 array_push($MergeList, $item);
         $i++;
             //$MergeJson = json_encode($MergeList);
             endforeach;
             return $MergeList;
     }
-        /*
-    ###goods color name##########################################################
-    function ColorSearch($item){
-        $color_code = [];
-        foreach((array)$item['tagId'] as $number){
-            for($j = 1000873; $j <= 1000887; $j++){
-                if($number == $j){
-                    array_push($color_code, $number);
-                }
-            }
-        }
-        foreach($color_code as $color){
-            $rakuten_tag = search_brand($color);
-            foreach ((array)$rakuten_tag as $tag){
-                $tag_array = $tag['tagname'];
-                $map = array(
-                    $color => $tag_array['tag']->tagName,
-                             );
-            }
-        }
-            $MergeMap = array();
-            $MergeMap = array_merge($MergeMap,$map);
-            $jsonMap = json_encode($MergeMap);
-
-        return $jsonMap;
-    }
-
-    ###goods brand name##########################################################
-    function BrandSearch($keyword){
-        $rakuten_relust_goods = getRakutenResult($keyword); // キーワードと最低価格を指定
-        $rakuten_relust_brand = search_brand($tagId);
-        foreach((array)$item['tagId'] as $number){
-            for($j = 1000709; $j <= 1000869; $j++){
-                if($number == $j){
-                    $brand_code = $number;
-                }
-            }
-        }
-            $rakuten_tag = search_brand($brand_code);
-            foreach ( (array)$rakuten_tag as $tag):
-                $tag_array = $tag['tagname'];
-        $map = array(
-        $brand_code => $tag_array['tag']->tagName,
-                     );
-         endforeach;
-        $MergeMap = array();
-        $MergeMap = array_merge($MergeMap,$map);
-        $jsonMap = json_encode($MergeMap);
-
-        return $jsonMap;
-
-    }
-        */
+    
     #########商品検索API検索##############################################################################
     function getRakutenResult($keyword,$min_price) {
         
@@ -176,11 +142,12 @@
                              'tagId' => (array)$item->Item->tagIds,
                              'ImageUrls' => (array)$item->Item->mediumImageUrls,
                              'CatchCopy'=> (string)$item->Item->catchcopy,
-                             'Genre'=> (string)$item->Item->genreId,
+                             'Genre' => (string)$item->Item->genreId,
                              'pointRate' => (string)$item->Item->pointRate,
                              'itemCaption' => (string)$item->Item->itemCaption,
                              );
         }return $items;
+        
         $image = array();
         $i = 0;
         foreach ($item['ImageUrls'] as $images){
@@ -214,7 +181,7 @@
         $rakuten_json=json_decode(@file_get_contents($url, true));
         
         $tags = array();
-        foreach($rakuten_json->tagGroups as $tag) {
+        foreach($rakuten_json->tagGroups as $tag){
             $tags[] = array(
                             'tagname' => (array)$tag->tagGroup->tags[0],
                             );
