@@ -18,6 +18,8 @@
 <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script src="./plugins/elevatezoom-master/jquery.elevatezoom.js" type="text/javascript"></script>
+<script src="./plugins/show-more-master/jquery.showmore.min.js"></script>
+
 </head>
 
 <body>
@@ -51,7 +53,7 @@
 			        	for(let j = 0; j < 8; j ++) {
 			        		let productImage = document.createElement("img");
 			        		productImage.setAttribute("class","productImage");
-			        		productImage.setAttribute("id","productImage" + j);
+			        		productImage.setAttribute("id","productImage");
 			        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
 			        		productImages.appendChild(productImage);
 			        	}
@@ -96,7 +98,7 @@
 						theme.innerText = "Description"
 						theme.setAttribute("class", "theme");
 						let description = document.createElement("h4");
-						description.innerText = "hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
+						description.innerText = "hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
 						description.setAttribute("class", "description");
 						let ptheme = document.createElement("h3");
 						ptheme.innerText = "Price"
@@ -155,6 +157,17 @@
 
 <script>
 
+	$(document).ready(function() {
+	  $('.description').showMore({
+	    speedDown: 300,
+	    speedUp: 300,
+	    height: '100px',
+	    showText: '&raquo; show more',
+	    hideText: '&raquo; show less'
+	  });     
+	});
+
+
     function openNav() {
         document.getElementById("sideNav").style.width = "250px";
     }
@@ -170,4 +183,17 @@
 			scrollZoom:true
 		});
 	});
+
+	var LocString=String(window.document.location.href);
+    let keyWord = LocString.split("=");
+    let word = keyWord[1].split(";");
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET","../rakuten_back 3.0/json_output.php?keyWord="+word[0], true);
+    xhr.onload = function(){
+        let obj = JSON.parse(this.responseText);
+        console.log(obj);
+        let img = document.getElementById("productImage");
+        img.setAttribute("src", obj[0]["image"][0]["imageUrl"])
+    }
+    xhr.send();
 </script>
