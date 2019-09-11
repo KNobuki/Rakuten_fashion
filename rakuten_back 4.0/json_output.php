@@ -1,23 +1,24 @@
 
 <?php
     //search_brand(1000873);
-    $merge_list = GoodsMerge("diesel 靴",5000);
-    //print_r($merge_list)."<br/>";
-    /*foreach ((array)$merge_list as $item){
-        print_r($item);
-        echo "<br/><br/>";
-    }*/
-    //print_r($merge_list)."<br/>";
-    $Data = DataSet($merge_list);
-        print_r($Data);
+    if(isset($_GET['keyWord'])){
+        $merge_list = GoodsMerge("diesel 靴",5000);
+
+        $Data = DataSet($merge_list);
+        ob_clean();
+        echo $Data;
+   }
     
 
 ##以下関数定義#########
     function DataSet($merge_list){
-        $data_map = [];
+        $data_map = [];$i = 0;
         foreach ((array)$merge_list as $item):
+        $i++;
+        $explode_urls = explode("/",$merge_list[$i-1]['url']);
+
         $map = array(///////ここに全部追加
-                     "url" => $item['url'],
+                     "id" => $explode_urls[count($explode_urls)-2],
                      "price" =>$item['price'],
                      "image" =>$item['ImageUrls'],
                      );

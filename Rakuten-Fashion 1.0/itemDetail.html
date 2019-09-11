@@ -18,6 +18,8 @@
 <script type="text/javascript" src="plugins/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script src="./plugins/elevatezoom-master/jquery.elevatezoom.js" type="text/javascript"></script>
+<script src="./plugins/show-more-master/jquery.showmore.min.js"></script>
+
 </head>
 
 <body>
@@ -96,7 +98,7 @@
 						theme.innerText = "Description"
 						theme.setAttribute("class", "theme");
 						let description = document.createElement("h4");
-						description.innerText = "hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
+						description.innerText = "hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
 						description.setAttribute("class", "description");
 						let ptheme = document.createElement("h3");
 						ptheme.innerText = "Price"
@@ -154,6 +156,17 @@
 </html>
 
 <script>
+
+	$(document).ready(function() {
+	  $('.description').showMore({
+	    speedDown: 300,
+	    speedUp: 300,
+	    height: '100px',
+	    showText: '&raquo; show more',
+	    hideText: '&raquo; show less'
+	  });     
+	});
+
 
     function openNav() {
         document.getElementById("sideNav").style.width = "250px";

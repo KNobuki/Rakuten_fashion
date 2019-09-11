@@ -7,7 +7,6 @@
 <link href="images/favicon.png" rel="icon">
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/jquery-tagsinput.min.css">
-<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
@@ -63,6 +62,7 @@
         for (let i = 0; i < 3; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-primary recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
         	tag.innerHTML = "Test Tag_" + i;
         	recomandTag.appendChild(tag);
         }
@@ -70,6 +70,7 @@
         for (let i = 0; i < 3; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-warning recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
         	tag.innerHTML = "Test Tag_" + i;
         	recomandTag.appendChild(tag);
         }
@@ -77,6 +78,7 @@
         for (let i = 0; i < 2; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-danger recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
         	tag.innerHTML = "Test Tag_" + i;
         	recomandTag.appendChild(tag);
         }
@@ -84,6 +86,7 @@
         for (let i = 0; i < 2; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-default recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
         	tag.innerHTML = "Test Tag_" + i;
         	recomandTag.appendChild(tag);
         }
