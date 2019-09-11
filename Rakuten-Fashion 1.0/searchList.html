@@ -124,10 +124,10 @@
             let productImages = document.createElement("div");
             productImages.setAttribute("class","productImages");
             productImages.setAttribute("id","productImages_" + i);
-            for(let j = 0; j < 4; j ++) {
+            for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
-                productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
+                productImage.setAttribute("src",jsonObj[i].image[j].imageUrl);
                 productImages.appendChild(productImage);
             }
             let productName = document.createElement("p");
@@ -135,20 +135,20 @@
             productName.innerHTML = "slipper";
             let productPrice = document.createElement("p");
             productPrice.setAttribute("class", "productPrice");
-            productPrice.innerHTML = "$20 - $30";
+            productPrice.innerHTML = jsonObj[i].price;
             let variants = document.createElement("div");
             variants.setAttribute("class","variants");
             variants.setAttribute("id", "variants_" + i);
-            for(let k = 0; k < 4; k ++) {
+            for(let k = 0; k < jsonObj[i].image.length; k ++) {
                 let variant = document.createElement("img");
                 variant.setAttribute("class","variant");
-                variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
+                variant.setAttribute("src",jsonObj[i].image[k].imageUrl);
                 variants.appendChild(variant);
             }
             let id = document.createElement("input");
             id.setAttribute("type", "hidden");
             id.setAttribute("id", "itemId");
-            id.setAttribute("value", "tb340659402972333u;");
+            id.setAttribute("value", jsonObj[i].id);
             let a = document.createElement("a");
             // a.setAttribute("href", "itemDetail.html");
             a.setAttribute("onclick", "OnLinkClick()");
@@ -169,11 +169,11 @@
 			  arrows: true,
 			  centerMode: true,
 			  variableWidth: true,
-  			  asNavFor: '#' + jsonObj[i].id,
+  			  asNavFor: "#productImages_" + i,
   			  focusOnSelect: true
 			});
 
-         $('#' + jsonObj[i].id).slick({
+         $("#productImages_" + i).slick({
 			  slidesToShow: 1,
 			  slidesToScroll: 1,
 			  arrows: false,
