@@ -5,11 +5,11 @@
 <meta name="author" content="Rakuten Fashion Dev Team">
 <title>Rakuten Fashion</title>
 <link href="images/favicon.png" rel="icon">
-<link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/bootstrap-slider.min.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="plugins/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
+<link rel="stylesheet" href="CSS/style.css">
 <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
 <script type="text/javascript" src="plugins/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
@@ -113,7 +113,7 @@
         	for(let j = 0; j < 4; j ++) {
         		let productImage = document.createElement("img");
         		productImage.setAttribute("class","productImage");
-        		productImage.setAttribute("src","images/test" + (j+1) +".jpg");
+        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
         		productImages.appendChild(productImage);
         	}
         	let productName = document.createElement("p");
@@ -128,12 +128,12 @@
         	for(let k = 0; k < 4; k ++) {
         		let variant = document.createElement("img");
         		variant.setAttribute("class","variant");
-        		variant.setAttribute("src","images/test" + (k+1) +".jpg");
+        		variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
         		variants.appendChild(variant);
         	}
+        	productBox.appendChild(productImages);
         	productBox.appendChild(variants);
         	productBox.appendChild(productName);
-        	productBox.appendChild(productImages);
         	productBox.appendChild(productPrice);
             searchList.appendChild(productBox);
 
@@ -164,11 +164,12 @@
 <script>
     var LocString=String(window.document.location.href);
     let keyWord = LocString.split("=");
-
+    let word = keyWord[1].split(";");
+    console.log(word[0]);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../json_output.php?keyWord="+keyWord[1], true);
+    xhr.open("GET","../rakuten_back 2.0/json_output.php?keyWord="+word[0], true);
     xhr.onload = function(){
-        alert(this.responseText);
+        console.log(this.responseText);
     }
     xhr.send();
 
