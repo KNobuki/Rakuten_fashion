@@ -122,8 +122,10 @@
 				let itemInfo = document.createElement("div");
 				itemInfo.setAttribute("class", "itemInfo");
 				document.getElementById("compareItem").appendChild(itemInfo);
-				let price = document.createElement("h3");
-				price.innerText = "Price:" + "20$";
+				let total = document.createElement("h3");
+				total.innerText = "Total:" + "20$";
+				let price = document.createElement("h4");
+				price.innerText = "Price:" + "19$";
 				let shippingFee = document.createElement("h4");
 				shippingFee.innerText = "Shipping Fee:" + "1$";
 				let point = document.createElement("h4");
@@ -133,6 +135,7 @@
 				button.innerText = "Purchase";
 				button.setAttribute("class", "btn btn-default");
 				purchase.appendChild(button);
+				itemInfo.appendChild(total);
 				itemInfo.appendChild(price);
 				itemInfo.appendChild(shippingFee);
 				itemInfo.appendChild(point);
