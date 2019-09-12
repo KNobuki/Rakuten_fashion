@@ -95,7 +95,7 @@
 </html>
 
 <script>
-    var minPrice = 0,
+    var minPrice = 1000,
     maxPrice = 10000;
     new Slider("#priceRange", { min: 0, max: 10000, value: [0, 10000], focus: true }).on('change', function (e) {
         minPrice = e.newValue[0];
@@ -127,10 +127,12 @@
         }
 
         let xhr = new XMLHttpRequest();
-        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&searchMinPrice=" + minPrice + "&searchMaxPrice=" + maxPrice, true);
+        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
         xhr.onload = function(){
-            console.log(this.responseText);
-            let searchListObj = JSON.parse(this.responseText);
+            let index = this.responseText.indexOf('[')
+            jsonData = this.responseText.substr(index);
+            console.log(jsonData);
+            let searchListObj = JSON.parse(jsonData);
             console.log(searchListObj);
             indexSearch(searchListObj);
         }
@@ -141,7 +143,7 @@
      function indexSearch(jsonObj) {
         var searchList = document.getElementById("searchList");
         searchList.innerHTML = '';
-        let itemNumber = 15;
+        let itemNumber = jsonObj.length < 15? jsonObj.length : 15;
         searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 5) * 400 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
             let productBox = document.createElement("div");
@@ -216,10 +218,12 @@
     }
     console.log(result);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&searchminPrice=" + minPrice + "&searchMaxPrice=" + maxPrice, true);
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
     xhr.onload = function(){
-        console.log(this.responseText);
-        let searchListObj = JSON.parse(this.responseText);
+        let index = this.responseText.indexOf('[')
+        jsonData = this.responseText.substr(index);
+        console.log(jsonData);
+        let searchListObj = JSON.parse(jsonData);
         console.log(searchListObj);
         indexSearch(searchListObj);
     }
