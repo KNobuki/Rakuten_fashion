@@ -2,7 +2,7 @@
 <?php
     //search_brand(1000873);
     if(isset($_GET['keyWord'])){
-        $merge_list = GoodsMerge("diesel 靴",5000);
+        $merge_list = GoodsMerge($_GET['keyWord'],5000);
 
         $Data = DataSet($merge_list);
         ob_clean();
