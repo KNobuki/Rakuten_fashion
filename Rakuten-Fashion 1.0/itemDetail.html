@@ -91,7 +91,7 @@
 							  fade: true,
 							  asNavFor: '#variants_' + "0"
 							});
-				    	}				    	
+				    	}		
 				    </script>
 
 				</div>
@@ -113,7 +113,7 @@
 							if (min_price == max_price) {
 								price.innerText = "￥" + jsonObj[0]["min_price"];	
 							} else {
-								"￥" + jsonObj[0]["min_price"] + "~￥" + jsonObj[0]["max_price"];
+								price.innerText ="￥" + jsonObj[0]["min_price"] + "~￥" + jsonObj[0]["max_price"];
 							}
 							
 							price.setAttribute("class", "price");
@@ -133,11 +133,8 @@
 							itemDesc.appendChild(theme);
 							itemDesc.appendChild(description);
 							itemDesc.appendChild(form);
-						}				
+						}
 					</script>
-					<!-- <form class="ps-search--header" action="do_action" method="post">
-					  	<button type="button" onclick="location.href='./searchList.html'" class="btn btn-default" id="similarItem" >Similar Items</button>
-					</form> -->
 				</div>
 			</div>
 		</div>
@@ -215,11 +212,11 @@
     let xhr = new XMLHttpRequest();
     xhr.open("GET","../rakuten_back 4.0/json_detailOutput.php?itemID="+word[0], true);
     xhr.onload = function(){
-        let searchListObj = JSON.parse(this.responseText);
+        let searchListObj = JSON.parse((this.responseText));
         console.log(searchListObj);
         itemImgList(searchListObj);
         itemInfoList(searchListObj);
-        itemCompareList(searchListObj);
+        itemICompareList(searchListObj);
     }
     xhr.send();
 </script>
