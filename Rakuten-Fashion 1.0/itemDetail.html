@@ -113,7 +113,7 @@
 							if (min_price == max_price) {
 								price.innerText = "￥" + jsonObj[0]["min_price"];	
 							} else {
-								"￥" + jsonObj[0]["min_price"] + "~￥" + jsonObj[0]["max_price"];
+								price.innerText ="￥" + jsonObj[0]["min_price"] + "~￥" + jsonObj[0]["max_price"];
 							}
 							
 							price.setAttribute("class", "price");
