@@ -1,6 +1,6 @@
 
 <?php
-    $merge_list = GoodsMerge("a-02-8102-1578",5000); //$IDに商品IDを渡してあげることで表示を実現
+    $merge_list = GoodsMerge("mp1410",5000); //$IDに商品IDを渡してあげることで表示を実現
     $Data = DataSet($merge_list);
         print_r($Data);
 
@@ -17,8 +17,10 @@
             $imageURL = [];
             for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
                 $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
-                array_push($imageURL,$explodeImageUrls[0]);
+                $imageURL += array("imageUrl" => $explodeImageUrls[0],);
             }
+            #print_r($imageURL);
+            #print_r($item['ImageUrls']);
             $goodsID = explode("/",$item['url']);
             $goodsID = $goodsID[count($goodsID)-2];
             $map = array(///////ここに全部追加
