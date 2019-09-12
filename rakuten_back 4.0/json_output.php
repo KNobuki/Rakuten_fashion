@@ -2,7 +2,7 @@
 <?php
     //search_brand(1000873);
     if(isset($_GET['keyWord'])){
-        $merge_list = GoodsMerge($_GET['keyWord'],5000);
+        $merge_list = GoodsMerge($_GET['keyWord'],$_GET['minPrice'],$_GET['maxPrice']);
 
         $Data = DataSet($merge_list);
         ob_clean();
@@ -101,14 +101,15 @@
     }
     
     #########商品検索API検索##############################################################################
-    function getRakutenResult($keyword,$min_price) {
+    function getRakutenResult($keyword,$minPrice) {
         
         // ベースとなるリクエストURL
         $baseurl = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222';
         $params = array();
         $params['applicationId'] = '1066483623417999424'; // アプリID
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
-        $params['minPrice'] = $min_price;
+        $params['minPrice'] = $minPrice;
+        $params['maxPrice'] = $maxPrice;
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
