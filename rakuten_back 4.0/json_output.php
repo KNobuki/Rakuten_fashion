@@ -3,7 +3,6 @@
     //search_brand(1000873);
     if(isset($_GET['keyWord'])){
         $merge_list = GoodsMerge($_GET['keyWord'],$_GET['minPrice'],$_GET['maxPrice']);
-
         $Data = DataSet($merge_list);
         ob_clean();
         echo $Data;
