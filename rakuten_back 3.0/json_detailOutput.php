@@ -1,12 +1,8 @@
 
 <?php
-    if(isset($_GET['itemID'])){
-        $merge_list = GoodsMerge($_GET['itemID'],5000);
-
-        $Data = DataSet($merge_list);
-        ob_clean();
-        echo $Data;
-   }
+    $merge_list = GoodsMerge("a-02-8102-1578",5000); //$IDに商品IDを渡してあげることで表示を実現
+    $Data = DataSet($merge_list);
+        print_r($Data);
 
 ##以下関数定義#########
     function DataSet($merge_list){

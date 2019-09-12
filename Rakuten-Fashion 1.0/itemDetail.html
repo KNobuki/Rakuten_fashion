@@ -53,7 +53,7 @@
 			        	for(let j = 0; j < 8; j ++) {
 			        		let productImage = document.createElement("img");
 			        		productImage.setAttribute("class","productImage");
-			        		productImage.setAttribute("id","productImage" + j);
+			        		productImage.setAttribute("id","productImage");
 			        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
 			        		productImages.appendChild(productImage);
 			        	}
@@ -183,4 +183,18 @@
 			scrollZoom:true
 		});
 	});
+
+	var LocString=String(window.document.location.href);
+    let keyWord = LocString.split("=");
+    let word = keyWord[1].split(";");
+    console.log(word);
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+word[0], true);
+    xhr.onload = function(){
+        let obj = JSON.parse(this.responseText);
+        console.log(obj);
+        let img = document.getElementById("productImage");
+        img.setAttribute("src", obj[0]["image"][0]["imageUrl"])
+    }
+    xhr.send();
 </script>

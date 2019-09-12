@@ -1,38 +1,29 @@
 
 <?php
-    if(isset($_GET['itemID'])){
-        $merge_list = GoodsMerge($_GET['itemID'],5000);
-
+    //search_brand(1000873);
+    if(isset($_GET['keyWord'])){
+        $merge_list = GoodsMerge($_GET['keyWord'],5000);
+        //print_r($merge_list)."<br/>";
+        /*foreach ((array)$merge_list as $item){
+            print_r($item);
+            echo "<br/><br/>";
+        }*/
+        //print_r($merge_list)."<br/>";
         $Data = DataSet($merge_list);
         ob_clean();
         echo $Data;
-   }
+        }
+    
+    
 
 ##以下関数定義#########
     function DataSet($merge_list){
-        $data_map = []; $costList = [];
-        foreach ((array)$merge_list as $item){
-            array_push($costList,$item['price']);
-            $max_price = max($costList);
-            $min_price = min($costList);
-        }
+        $data_map = [];
         foreach ((array)$merge_list as $item):
-            // 画像の縮小パラメータを除去
-            $imageURL = [];
-            for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
-                $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
-                array_push($imageURL,$explodeImageUrls[0]);
-            }
-            $goodsID = explode("/",$item['url']);
-            $goodsID = $goodsID[count($goodsID)-2];
-            $map = array(///////ここに全部追加
-                     "ID" => $goodsID,
+        $map = array(///////ここに全部追加
+                     "url" => $item['url'],
                      "price" =>$item['price'],
-                     "max_price" => $max_price,
-                     "min_price" => $min_price,
-                     "image" =>$imageURL,
-                     "pointRate" => $item['pointRate'],
-                     "itemCaption" => $item['itemCaption'],
+                     "image" =>$item['ImageUrls'],
                      );
             $color_code = []; $color_map = [];$brand_map = [];
             foreach((array)$item['tagId'] as $number){
@@ -86,7 +77,7 @@
         array_push($data_map, $map);
      
         endforeach;
-        $json_data = json_encode($data_map,JSON_UNESCAPED_UNICODE);
+        $json_data = json_encode($data_map);
 
         return $json_data;
        // $json_data = json_encode($map);
@@ -94,16 +85,17 @@
     }
     
     ###same goods merge##########################################################
-    function GoodsMerge($ID,$min_price){
-        $i = 1; $MergeList = [];
-            $rakuten_relust = getRakutenResult($ID,$min_price); // キーワードと最低価格を指定
+    function GoodsMerge($keyword,$min_price){
+        $i = 1; $MergeList = []; $aleadyExistsItemList = [];$args = [];
+            $rakuten_relust = getRakutenResult($keyword,$min_price); // キーワードと最低価格を指定
             foreach ( (array)$rakuten_relust as $item):
                 $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
-                $item_id = $explode_urls[count($explode_urls)-2];
-                if($item_id != $ID){
+                $is_merge_item = in_array($explode_urls[count($explode_urls)-2], $args);
+                if($is_merge_item){
                     $i++;
                     continue;
                 }
+                array_push($args, $explode_urls[count($explode_urls)-2]);
                 array_push($MergeList, $item);
         $i++;
             //$MergeJson = json_encode($MergeList);
@@ -146,9 +138,8 @@
                              'tagId' => (array)$item->Item->tagIds,
                              'ImageUrls' => (array)$item->Item->mediumImageUrls,
                              'CatchCopy'=> (string)$item->Item->catchcopy,
-                             'Genre' => (string)$item->Item->genreId,
-                             'pointRate' => (string)$item->Item->pointRate,
-                             'itemCaption' => (string)$item->Item->itemCaption,
+                             'Genre'=> (string)$item->Item->genreId,
+                             
                              );
         }return $items;
         
