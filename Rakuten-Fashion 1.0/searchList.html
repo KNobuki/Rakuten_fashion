@@ -116,14 +116,14 @@
 
      function indexSearch(jsonObj) {
         var searchList = document.getElementById("searchList");
-        let itemNumber = 10;
+        let itemNumber = 12;
         searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
             let productBox = document.createElement("div");
             productBox.setAttribute("class", "productbox");
             let productImages = document.createElement("div");
             productImages.setAttribute("class","productImages");
-            productImages.setAttribute("id","productImages_" + i);
+            productImages.setAttribute("id", jsonObj[i].id);
             for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
@@ -132,7 +132,7 @@
             }
             let productName = document.createElement("p");
             productName.setAttribute("class", "productName");
-            productName.innerHTML = "slipper";
+            productName.innerHTML = jsonObj[i].brand_name;
             let productPrice = document.createElement("p");
             productPrice.setAttribute("class", "productPrice");
             productPrice.innerHTML = jsonObj[i].price;
@@ -145,16 +145,18 @@
                 variant.setAttribute("src",jsonObj[i].image[k].imageUrl);
                 variants.appendChild(variant);
             }
-            let id = document.createElement("input");
-            id.setAttribute("type", "hidden");
-            id.setAttribute("id", "itemId");
-            id.setAttribute("value", jsonObj[i].id);
-            let a = document.createElement("a");
-            // a.setAttribute("href", "itemDetail.html");
-            a.setAttribute("onclick", "OnLinkClick()");
-            a.appendChild(id);
-            a.appendChild(productImages);
-            productBox.appendChild(a);
+            // let id = document.createElement("input");
+            // id.setAttribute("type", "hidden");
+            // id.setAttribute("id", "itemId");
+            // id.setAttribute("value", jsonObj[i].id);
+            // let a = document.createElement("a");
+            // // a.setAttribute("href", "itemDetail.html");
+            // a.setAttribute("onclick", "OnLinkClick(this)");
+            // a.appendChild(id);
+            // a.appendChild(productImages);
+            // productBox.appendChild(a);
+            productImages.setAttribute("onclick", "OnLinkClick(this)");
+            productBox.appendChild(productImages);
             productBox.appendChild(variants);
             productBox.appendChild(productName);
             productBox.appendChild(productPrice);
@@ -169,11 +171,11 @@
 			  arrows: true,
 			  centerMode: true,
 			  variableWidth: true,
-  			  asNavFor: "#productImages_" + i,
+  			  asNavFor:  "#" + jsonObj[i].id,
   			  focusOnSelect: true
 			});
 
-         $("#productImages_" + i).slick({
+         $("#" + jsonObj[i].id).slick({
 			  slidesToShow: 1,
 			  slidesToScroll: 1,
 			  arrows: false,
@@ -197,5 +199,11 @@
         indexSearch(searchListObj);
     }
     xhr.send();
+
+    function OnLinkClick(obj){
+        console.log(obj);
+        let url = "itemDetail.html?id=" + obj.id;
+        window.open(url);
+    }
 
 </script>
