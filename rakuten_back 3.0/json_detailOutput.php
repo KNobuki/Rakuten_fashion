@@ -1,6 +1,6 @@
 
 <?php
-    $merge_list = GoodsMerge("mp1410",5000); //$IDに商品IDを渡してあげることで表示を実現
+    $merge_list = GoodsMerge("mp1410",$minPrice); //$IDに商品IDを渡してあげることで表示を実現
     $Data = DataSet($merge_list);
         print_r($Data);
 
@@ -31,6 +31,8 @@
                      "image" =>$imageURL,
                      "pointRate" => $item['pointRate'],
                      "itemCaption" => $item['itemCaption'],
+                     "catchcopy" => $item['catchcopy'],
+                     "shopName" => $item['shopName'],
                      );
             $color_code = []; $color_map = [];$brand_map = [];
             foreach((array)$item['tagId'] as $number){
@@ -147,6 +149,8 @@
                              'Genre' => (string)$item->Item->genreId,
                              'pointRate' => (string)$item->Item->pointRate,
                              'itemCaption' => (string)$item->Item->itemCaption,
+                             'catchcopy' => (string)$item->Item->catchcopy,
+                             'shopName' =>  (string)$item->Item->shopName,
                              );
         }return $items;
         
