@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="author" content="Rakuten Fashion Dev Team">
+<title>Rakuten Fashion</title>
+<link href="images/favicon.png" rel="icon">
+<link rel="stylesheet" href="CSS/style.css">
+<link rel="stylesheet" href="CSS/jquery-tagsinput.min.css">
+<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/color/jquery.color.plus-names-2.1.2.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" defer></script>
+<script src="plugins/jquery-tagsinput.min.js"></script>
+
+</head>
+
+<body>
+	<div class="header">
+		<span id="logo">Rakuten Fashion</span>
+	</div>
+
+	<div id="hp-logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+	<div id="hp-searchBox">
+		<form class="ps-search--header" id ="getForm">
+			<input id="searchKeyWord" type="text" data-role='tags-input'/>
+			<br>
+		  	<input class="btn btn-default" type="submit" method = "get" value="submit" action = "sesarchList.html"/>
+		</form>
+
+		<div id="recomandTag">
+		</div>
+
+		<img width="166" height="168.5" src="images/stmp6.gif" alt="" style="margin-top: 20px;">
+	</div>
+          
+	<div class="footer">
+		<h1>
+			Rakuten Fashion
+		</h1>
+		<a target="_blank" href="https://brandavenue.rakuten.co.jp/">Rakuten BrandAvenue</a>
+	</div>
+	
+</body>
+
+</html>
+
+<script>
+    $tag_name["トップス","アウター","パンツ","シューズ","キャップ","メンズ","レディース","キッズ","マタニティ","春服","夏服","秋服","冬服","送料無料","あす楽","再入荷"];
+	$(document).ready(function() {
+        $('[data-role="tags-input"]').tagsInput();
+
+        var recomandTag = document.getElementById("recomandTag");
+        for (let i = 0; i < 5; i ++) {
+        	let tag = document.createElement("span");
+        	tag.setAttribute("class", "label label-success recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
+        	tag.innerHTML = "Test Tag_" + i;
+        	recomandTag.appendChild(tag);
+        }
+
+        for (let i = 0; i < 3; i ++) {
+        	let tag = document.createElement("span");
+        	tag.setAttribute("class", "label label-primary recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
+        	tag.innerHTML = "Test Tag_" + i;
+        	recomandTag.appendChild(tag);
+        }
+
+        for (let i = 0; i < 3; i ++) {
+        	let tag = document.createElement("span");
+        	tag.setAttribute("class", "label label-warning recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
+        	tag.innerHTML = "Test Tag_" + i;
+        	recomandTag.appendChild(tag);
+        }
+
+        for (let i = 0; i < 2; i ++) {
+        	let tag = document.createElement("span");
+        	tag.setAttribute("class", "label label-danger recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
+        	tag.innerHTML = "Test Tag_" + i;
+        	recomandTag.appendChild(tag);
+        }
+
+        for (let i = 0; i < 2; i ++) {
+        	let tag = document.createElement("span");
+        	tag.setAttribute("class", "label label-default recommandLabel");
+        	tag.setAttribute("onclick", "selectTag(this)");
+        	tag.innerHTML = "Test Tag_" + i;
+        	recomandTag.appendChild(tag);
+        }
+    });
+
+    document.getElementById("getForm").addEventListener("submit",getForm);
+    function getForm(e){
+        e.preventDefault();
+        let keyWord = document.getElementById('searchKeyWord').value;
+        var url = "searchList.html?keyWord="+keyWord;
+        window.open(url)
+   }
+
+   function selectTag(obj){
+   		// alert(obj.innerHTML);
+   		let searchKeyWord = document.getElementsByTagName('input')[1];
+   		searchKeyWord.value =obj.innerHTML;
+   		searchKeyWord.focus();
+   }
+
+</script>
+

@@ -47,6 +47,15 @@
 				<div id="itemImg" class="col-6">
 				    <script type="text/javascript">
 				    	function itemImgList(jsonObj){
+				    		$(document).ready(function() {
+							  $('.description').showMore({
+							    speedDown: 300,
+							    speedUp: 300,
+							    height: '100px',
+							    showText: '&raquo; show more',
+							    hideText: '&raquo; show less'
+							  });     
+							});							
 				    		let itemImg = document.getElementById("itemImg");
 				        	let productImages = document.createElement("div");
 				        	productImages.setAttribute("class","tempImages");
@@ -98,6 +107,11 @@
 				<div id="itemDesc" class="col-6">
 					<script type="text/javascript">
 						function itemInfoList(jsonObj){
+							$(".slick-list").hover(function(){
+								$(".productImage.slick-current").elevateZoom({
+									scrollZoom:true
+								});
+							});
 							let theme = document.createElement("h3");
 							theme.innerText = "Description"
 							theme.setAttribute("class", "theme");
@@ -189,18 +203,6 @@
 </html>
 
 <script>
-
-	$(document).ready(function() {
-	  $('.description').showMore({
-	    speedDown: 300,
-	    speedUp: 300,
-	    height: '100px',
-	    showText: '&raquo; show more',
-	    hideText: '&raquo; show less'
-	  });     
-	});
-
-
     function openNav() {
         document.getElementById("sideNav").style.width = "250px";
     }
@@ -211,12 +213,6 @@
 </script>
 
 <script>
-	$(".slick-list").hover(function(){
-		$(".productImage.slick-current").elevateZoom({
-			scrollZoom:true
-		});
-	});
-
 	var LocString=String(window.document.location.href);
     let keyWord = LocString.split("=");
     let word = keyWord[1].split(";");
