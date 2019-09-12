@@ -128,7 +128,7 @@
             for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
-                productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
+                // productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
                 productImage.setAttribute("src",jsonObj[i].image[j].imageUrl);
                 productImages.appendChild(productImage);
             }
@@ -175,7 +175,8 @@
 			  centerMode: true,
 			  variableWidth: true,
   			  asNavFor:  "#" + jsonObj[i].id,
-  			  focusOnSelect: true
+  			  focusOnSelect: true,
+  			  // centerPadding: '40px'
 			});
 
          $("#" + jsonObj[i].id).slick({
