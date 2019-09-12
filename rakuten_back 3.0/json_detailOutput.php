@@ -1,6 +1,6 @@
 
 <?php
-    $merge_list = GoodsMerge("mp1410",5000); //$IDに商品IDを渡してあげることで表示を実現
+    $merge_list = GoodsMerge("mp1410",$minPrice); //$IDに商品IDを渡してあげることで表示を実現
     $Data = DataSet($merge_list);
         print_r($Data);
 
