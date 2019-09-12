@@ -140,26 +140,26 @@
 		</div>
 		<div id="compareItem">
 			<script type="text/javascript">
-			for (let i = 0; i < 10; i++) {
-				let itemInfo = document.createElement("div");
-				itemInfo.setAttribute("class", "itemInfo");
-				document.getElementById("compareItem").appendChild(itemInfo);
-				let price = document.createElement("p");
-				price.innerText = "Price:" + "20$";
-				let shippingFee = document.createElement("p");
-				shippingFee.innerText = "Shipping Fee:" + "1$";
-				let point = document.createElement("p");
-				point.innerText = "Point:" + "10P";
-				let purchase = document.createElement("form");
-				let button = document.createElement("button");
-				button.innerText = "Purchase";
-				button.setAttribute("class", "btn btn-default");
-				purchase.appendChild(button);
-				itemInfo.appendChild(price);
-				itemInfo.appendChild(shippingFee);
-				itemInfo.appendChild(point);
-				itemInfo.appendChild(purchase);
-			}
+				function itemICompareList(jsonObj){
+					let compareNum = jsonObj.length;
+					for (let i = 0; i < compareNum; i++) {
+						let itemInfo = document.createElement("div");
+						itemInfo.setAttribute("class", "itemInfo");
+						document.getElementById("compareItem").appendChild(itemInfo);
+						let price = document.createElement("p");
+						price.innerText = "Price:" + jsonObj[i]["price"];
+						let point = document.createElement("p");
+						point.innerText = "Point:" + Math.round(jsonObj[i]["price"] * (jsonObj[i]["pointRate"] / 100));
+						let purchase = document.createElement("form");
+						let button = document.createElement("button");
+						button.innerText = "Purchase";
+						button.setAttribute("class", "btn btn-default");
+						purchase.appendChild(button);
+						itemInfo.appendChild(price);
+						itemInfo.appendChild(point);
+						itemInfo.appendChild(purchase);
+					}
+				}			
 		</script>
 		</div>
 	</div>
@@ -216,7 +216,7 @@
         console.log(searchListObj);
         itemImgList(searchListObj);
         itemInfoList(searchListObj);
-        // itemICompareList(searchListObj);
+        itemICompareList(searchListObj);
     }
     xhr.send();
 </script>
