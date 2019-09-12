@@ -16,12 +16,26 @@
         foreach ((array)$merge_list as $item):
         $i++;
         $explode_urls = explode("/",$merge_list[$i-1]['url']);
-
+        if(count($item['ImageUrls'])>0){
         $map = array(///////ここに全部追加
                      "id" => $explode_urls[count($explode_urls)-2],
                      "price" =>$item['price'],
                      "image" =>$item['ImageUrls'],
+                     "genre" =>$item['Genre'],
+
                      );
+        }else{
+            $map = array(///////ここに全部追加
+                         "id" => $explode_urls[count($explode_urls)-2],
+                         "price" =>$item['price'],
+                         "image" =>"https://cdn.fotoagent.dk/accumolo/production/ci/master/1.2732.0//images/noimage_2_small.jpg",
+                         );
+        }/*
+        if($map["image"]==NULL){
+            $noimage = [];
+            $noimage[0] = "https://cdn.fotoagent.dk/accumolo/production/ci/master/1.2732.0//images/noimage_2_small.jpg";
+            $map["image"] =  $noimage;
+        }*/
             $color_code = []; $color_map = [];$brand_map = [];
             foreach((array)$item['tagId'] as $number){
                 for($j = 1000873; $j <= 1000887; $j++){
@@ -113,8 +127,7 @@
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
         $canonical_string='';
-
-        
+        $cloth = array("100371","551177","566222","566223","304083","216133", "100433","216131","558885","100533","110729","206168","213755", "110765","558846","558873","558863","100372","566031","110811’,303535","509223","409065","409335","403832","303526","551186","555086","555089","555087","110729","553029","555083","555084","555091","200074","553036","100428","409165","210800","509252","303735","409365","564338","566016","403911","101801","100480","110983","216172","559278","216134","216135","216136","304083","110993","111078","111102","111116","566733");
         foreach($params as $k => $v) {
             $canonical_string .= '&' . $k . '=' . $v;
         }
@@ -126,6 +139,7 @@
         $rakuten_json=json_decode(@file_get_contents($url, true));
         $items = array();
         foreach($rakuten_json->Items as $item) {
+             if(in_array((string)$item->Item->genreId, $cloth)){
             $items[] = array(
                              'name' => (string)$item->Item->itemName,
                              'url' => (string)$item->Item->itemUrl,
@@ -138,6 +152,7 @@
                              'Genre'=> (string)$item->Item->genreId,
                              
                              );
+       }
         }return $items;
         
         $image = array();
