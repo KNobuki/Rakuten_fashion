@@ -47,6 +47,7 @@
 </html>
 
 <script>
+
 	$(document).ready(function() {
         $('[data-role="tags-input"]').tagsInput();
 
@@ -55,7 +56,7 @@
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-success recommandLabel");
         	tag.setAttribute("onclick", "selectTag(this)");
-        	tag.innerHTML = "Test Tag_" + i;
+        	tag.innerHTML = "サンダル";
         	recomandTag.appendChild(tag);
         }
 
@@ -63,7 +64,7 @@
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-primary recommandLabel");
         	tag.setAttribute("onclick", "selectTag(this)");
-        	tag.innerHTML = "Test Tag_" + i;
+        	tag.innerHTML = "夏用";
         	recomandTag.appendChild(tag);
         }
 
@@ -96,6 +97,7 @@
     function getForm(e){
         e.preventDefault();
         let keyWord = document.getElementById('searchKeyWord').value;
+        console.log(keyWord);
         var url = "searchList.html?keyWord="+keyWord;
         window.open(url)
    }
