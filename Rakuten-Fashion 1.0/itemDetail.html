@@ -46,98 +46,74 @@
 			<div id="itemDetail" class="row">
 				<div id="itemImg" class="col-6">
 				    <script type="text/javascript">
-				    	function itemImgList(jsonObj){
-				    		let itemImg = document.getElementById("itemImg");
-				        	let productImages = document.createElement("div");
-				        	productImages.setAttribute("class","tempImages");
-				        	productImages.setAttribute("id","productImages_" + "0");
-				        	let imgNum = jsonObj[0]["image"].length;
-				        	for(let j = 0; j < imgNum; j ++) {
-				        		let productImage = document.createElement("img");
-				        		productImage.setAttribute("class","productImage");
-				        		productImage.setAttribute("id","productImage");
-				        		productImage.setAttribute("src",jsonObj[0]["image"][j]);
-				        		productImages.appendChild(productImage);
-				        	}
-				        	let variants = document.createElement("div");
-				        	variants.setAttribute("class","itemOptions");
-				        	variants.setAttribute("id", "variants_" + "0");
-				        	for(let k = 0; k < imgNum; k ++) {
-				        		let variant = document.createElement("img");
-				        		variant.setAttribute("class","itemOption");
-				        		variant.setAttribute("src",jsonObj[0]["image"][k]);
-				        		variants.appendChild(variant);
-				        	}
-				        	itemImg.appendChild(productImages);
-				        	itemImg.appendChild(variants);
+				    	let itemImg = document.getElementById("itemImg");
+			        	let productImages = document.createElement("div");
+			        	productImages.setAttribute("class","tempImages");
+			        	productImages.setAttribute("id","productImages_" + "0");
+			        	for(let j = 0; j < 8; j ++) {
+			        		let productImage = document.createElement("img");
+			        		productImage.setAttribute("class","productImage");
+			        		productImage.setAttribute("id","productImage");
+			        		productImage.setAttribute("src","images/shoe/0" + (j+1) +".jpg");
+			        		productImages.appendChild(productImage);
+			        	}
+			        	let variants = document.createElement("div");
+			        	variants.setAttribute("class","itemOptions");
+			        	variants.setAttribute("id", "variants_" + "0");
+			        	for(let k = 0; k < 8; k ++) {
+			        		let variant = document.createElement("img");
+			        		variant.setAttribute("class","itemOption");
+			        		variant.setAttribute("src","images/shoe/0" + (k+1) +".jpg");
+			        		variants.appendChild(variant);
+			        	}
+			        	itemImg.appendChild(productImages);
+			        	itemImg.appendChild(variants);
 
-				            $('#variants_' + "0").slick({
-							  infinite: true,
-							  slidesToShow: 3,
-							  slidesToScroll: 3,
-							  infinite: true,
-							  speed: 300,
-							  arrows: true,
-							  centerMode: true,
-							  variableWidth: true,
-				  			  asNavFor: '#productImages_' + "0",
-				  			  focusOnSelect: true
-							});
+			            $('#variants_' + "0").slick({
+						  infinite: true,
+						  slidesToShow: 3,
+						  slidesToScroll: 3,
+						  infinite: true,
+						  speed: 300,
+						  arrows: true,
+						  centerMode: true,
+						  variableWidth: true,
+			  			  asNavFor: '#productImages_' + "0",
+			  			  focusOnSelect: true
+						});
 
-	   			            $('#productImages_' + "0").slick({
-							  slidesToShow: 1,
-							  slidesToScroll: 1,
-							  arrows: false,
-							  fade: true,
-							  asNavFor: '#variants_' + "0"
-							});
-				    	}				    	
+   			            $('#productImages_' + "0").slick({
+						  slidesToShow: 1,
+						  slidesToScroll: 1,
+						  arrows: false,
+						  fade: true,
+						  asNavFor: '#variants_' + "0"
+						});
 				    </script>
 
 				</div>
 				<div id="itemDesc" class="col-6">
 					<script type="text/javascript">
-						function itemInfoList(jsonObj){
-							let theme = document.createElement("h3");
-							theme.innerText = "Description"
-							theme.setAttribute("class", "theme");
-							let description = document.createElement("h4");
-							description.innerText = jsonObj[0]["itemCaption"];
-							description.setAttribute("class", "description");
-							let ptheme = document.createElement("h3");
-							ptheme.innerText = "Price"
-							ptheme.setAttribute("class", "ptheme");
-							let price = document.createElement("h3");
-							let min_price = jsonObj[0]["min_price"];
-							let max_price = jsonObj[0]["max_price"];
-							if (min_price == max_price) {
-								price.innerText = "￥" + jsonObj[0]["min_price"];	
-							} else {
-								"￥" + jsonObj[0]["min_price"] + "~￥" + jsonObj[0]["max_price"];
-							}
-							
-							price.setAttribute("class", "price");
-							let form = document.createElement("form");
-							form.setAttribute("class", "ps-search--header");
-							form.setAttribute("action", "do_action");
-							form.setAttribute("method", "post");
-							let btn = document.createElement("button");
-							btn.setAttribute("type", "button");
-							btn.setAttribute("onclick", "location.href='./searchList.html'");
-							btn.setAttribute("class", "btn btn-default");
-							btn.setAttribute("id", "similarItem");
-							btn.innerText = "Similar Items";
-							form.appendChild(btn);
-							itemDesc.appendChild(ptheme);
-							itemDesc.appendChild(price);
-							itemDesc.appendChild(theme);
-							itemDesc.appendChild(description);
-							itemDesc.appendChild(form);
-						}				
+						let theme = document.createElement("h3");
+						theme.innerText = "Description"
+						theme.setAttribute("class", "theme");
+						let description = document.createElement("h4");
+						description.innerText = "hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
+						description.setAttribute("class", "description");
+						let ptheme = document.createElement("h3");
+						ptheme.innerText = "Price"
+						ptheme.setAttribute("class", "ptheme");
+						let price = document.createElement("h3");
+						price.innerText = "20~24$"
+						price.setAttribute("class", "price");
+						itemDesc.appendChild(ptheme);
+						itemDesc.appendChild(price);
+						itemDesc.appendChild(theme);
+						itemDesc.appendChild(description);
 					</script>
-					<!-- <form class="ps-search--header" action="do_action" method="post">
+					<form class="ps-search--header" action="do_action" method="post">
 					  	<button type="button" onclick="location.href='./searchList.html'" class="btn btn-default" id="similarItem" >Similar Items</button>
-					</form> -->
+					</form>
 				</div>
 			</div>
 		</div>
@@ -213,13 +189,12 @@
     let word = keyWord[1].split(";");
     console.log(word);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 4.0/json_detailOutput.php?itemID="+word[0], true);
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+word[0], true);
     xhr.onload = function(){
-        let searchListObj = JSON.parse(this.responseText);
-        console.log(searchListObj);
-        itemImgList(searchListObj);
-        itemInfoList(searchListObj);
-        itemCompareList(searchListObj);
+        let obj = JSON.parse(this.responseText);
+        console.log(obj);
+        let img = document.getElementById("productImage");
+        img.setAttribute("src", obj[0]["image"][0]["imageUrl"])
     }
     xhr.send();
 </script>
