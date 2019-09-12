@@ -81,9 +81,9 @@
     }
     
     ###same goods merge##########################################################
-    function GoodsMerge($keyword,$min_price){
+    function GoodsMerge($keyword,$min_price, $max_price){
         $i = 1; $MergeList = []; $aleadyExistsItemList = [];$args = [];
-            $rakuten_relust = getRakutenResult($keyword,$min_price); // キーワードと最低価格を指定
+            $rakuten_relust = getRakutenResult($keyword,$min_price, $max_price); // キーワードと最低価格を指定
             foreach ( (array)$rakuten_relust as $item):
                 $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
                 $is_merge_item = in_array($explode_urls[count($explode_urls)-2], $args);
@@ -100,7 +100,7 @@
     }
     
     #########商品検索API検索##############################################################################
-    function getRakutenResult($keyword,$minPrice) {
+    function getRakutenResult($keyword,$minPrice ,$maxPrice) {
         
         // ベースとなるリクエストURL
         $baseurl = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222';
