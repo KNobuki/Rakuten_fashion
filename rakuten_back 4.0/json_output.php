@@ -1,14 +1,11 @@
 
 <?php
-    //search_brand(1000873);
-    if(isset($_GET['keyWord'])){
-        $merge_list = GoodsMerge($_GET['keyWord'],$_GET['minPrice'],$_GET['maxPrice']);
-        $Data = DataSet($merge_list);
-        ob_clean();
-        echo $Data;
-   }
-    
-
+     if(isset($_GET['keyWord'])){
+     $merge_list = GoodsMerge($_GET['keyWord'], $_GET['minPrice'], $_GET['maxPrice']);
+     $Data = DataSet($merge_list);
+     ob_clean();
+     echo $Data;
+     }
 ##以下関数定義#########
     function DataSet($merge_list){
         $data_map = [];$i = 0;
@@ -74,10 +71,10 @@
      
         endforeach;
         $json_data = json_encode($data_map);
-
-        return $json_data;
+        
+       // return $json_data;
        // $json_data = json_encode($map);
-        //return $json_data;
+    return $json_data;
     }
     
     ###same goods merge##########################################################
@@ -113,7 +110,6 @@
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
         $canonical_string='';
-
         
         foreach($params as $k => $v) {
             $canonical_string .= '&' . $k . '=' . $v;
@@ -123,7 +119,7 @@
         // リクエストURL を作成
         $url = $baseurl . '?' . $canonical_string;
         // XMLをオブジェクトに代入
-        $rakuten_json=json_decode(@file_get_contents($url, true));
+        $rakuten_json = json_decode(@file_get_contents($url, true));
         $items = array();
         foreach($rakuten_json->Items as $item) {
             $items[] = array(
@@ -135,8 +131,7 @@
                              'tagId' => (array)$item->Item->tagIds,
                              'ImageUrls' => (array)$item->Item->mediumImageUrls,
                              'CatchCopy'=> (string)$item->Item->catchcopy,
-                             'Genre'=> (string)$item->Item->genreId,
-                             
+                             'Genre'=> (string)$item->Item->genreId,    
                              );
         }return $items;
         
@@ -157,7 +152,7 @@
         $urls = "https://app.rakuten.co.jp/services/api/IchibaTag/Search/20140222";
         $params = array();
         $params['applicationId'] = '1066483623417999424'; // アプリID
-        $params['tagId'] = $tagId; // 任意のキーワード。※文字コードは UTF-8
+        $params['tagId'] = $tagId; // 任意のキーワード。
         $canonical_string='';
         
         foreach($params as $k => $v) {
@@ -170,10 +165,10 @@
         $url = $urls . '?' . $canonical_string;
         
         // XMLをオブジェクトに代入
-        $rakuten_json=json_decode(@file_get_contents($url, true));
+        $rakuten_json_tag = json_decode(@file_get_contents($url, true));
         
         $tags = array();
-        foreach($rakuten_json->tagGroups as $tag){
+        foreach($rakuten_json_tag->tagGroups as $tag){
             $tags[] = array(
                             'tagname' => (array)$tag->tagGroup->tags[0],
                             );

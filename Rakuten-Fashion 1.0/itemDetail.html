@@ -220,7 +220,10 @@
     let xhr = new XMLHttpRequest();
     xhr.open("GET","../rakuten_back 4.0/json_detailOutput.php?itemID="+word[0], true);
     xhr.onload = function(){
-        let searchListObj = JSON.parse((this.responseText));
+    	console.log(this.responseText);
+        let index = this.responseText.indexOf('[')
+        let jsonData = this.responseText.substr(index);
+        let searchListObj = JSON.parse(jsonData);
         console.log(searchListObj);
         itemImgList(searchListObj);
         itemInfoList(searchListObj);
