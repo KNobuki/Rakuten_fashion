@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/jquery-tagsinput.min.css">
 <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
 
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
 <script src="https://code.jquery.com/color/jquery.color.plus-names-2.1.2.min.js"></script>
@@ -52,45 +53,49 @@
         $('[data-role="tags-input"]').tagsInput();
 
         var recomandTag = document.getElementById("recomandTag");
-        for (let i = 0; i < 5; i ++) {
+        let shoes = ["サンダル", "ブーツ", "スニーカー", "ヒール"];
+        for (let i = 0; i < 4; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-success recommandLabel");
         	tag.setAttribute("onclick", "selectTag(this)");
-        	tag.innerHTML = "サンダル";
+        	tag.innerHTML = shoes[i];
         	recomandTag.appendChild(tag);
         }
 
-        for (let i = 0; i < 3; i ++) {
+        let caps = ["キャップ", "ハット", "ニット帽", "ベレー帽"];
+        for (let i = 0; i < 4; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-primary recommandLabel");
         	tag.setAttribute("onclick", "selectTag(this)");
-        	tag.innerHTML = "夏用";
+        	tag.innerHTML = caps[i];
         	recomandTag.appendChild(tag);
         }
 
-        for (let i = 0; i < 3; i ++) {
+        let tops = ["Tシャツ", "Yシャツ", "パーカー", "トレーナー"];
+        for (let i = 0; i < 4; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-warning recommandLabel");
         	tag.setAttribute("onclick", "selectTag(this)");
-        	tag.innerHTML = "Test Tag_" + i;
+        	tag.innerHTML = tops[i];
         	recomandTag.appendChild(tag);
         }
 
-        for (let i = 0; i < 2; i ++) {
+        let seosons = ["春用", "夏用", "秋用", "冬用"];
+        for (let i = 0; i < 4; i ++) {
         	let tag = document.createElement("span");
         	tag.setAttribute("class", "label label-danger recommandLabel");
         	tag.setAttribute("onclick", "selectTag(this)");
-        	tag.innerHTML = "Test Tag_" + i;
+        	tag.innerHTML = seosons[i];
         	recomandTag.appendChild(tag);
         }
 
-        for (let i = 0; i < 2; i ++) {
-        	let tag = document.createElement("span");
-        	tag.setAttribute("class", "label label-default recommandLabel");
-        	tag.setAttribute("onclick", "selectTag(this)");
-        	tag.innerHTML = "Test Tag_" + i;
-        	recomandTag.appendChild(tag);
-        }
+        // for (let i = 0; i < 2; i ++) {
+        // 	let tag = document.createElement("span");
+        // 	tag.setAttribute("class", "label label-default recommandLabel");
+        // 	tag.setAttribute("onclick", "selectTag(this)");
+        // 	tag.innerHTML = "Test Tag_" + i;
+        // 	recomandTag.appendChild(tag);
+        // }
     });
 
     document.getElementById("getForm").addEventListener("submit",getForm);
