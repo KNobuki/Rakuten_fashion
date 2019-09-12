@@ -261,6 +261,8 @@
 }
 
 .recommandLabel {
+	text-align:center;
+	line-height:40px;
 	cursor: pointer;
 	margin:3px;
 	width: 80px;

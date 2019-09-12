@@ -210,7 +210,7 @@
     let word = keyWord[1].split(";");
     console.log(word);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+word[0], true);
+    xhr.open("GET","../rakuten_back 4.0/json_detailOutput.php?itemID="+word[0], true);
     xhr.onload = function(){
         let searchListObj = JSON.parse((this.responseText));
         console.log(searchListObj);
