@@ -130,7 +130,7 @@
         xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
         xhr.onload = function(){
             let index = this.responseText.indexOf('[')
-            jsonData = this.responseText.substr(index);
+            let jsonData = this.responseText.substr(index);
             console.log(jsonData);
             let searchListObj = JSON.parse(jsonData);
             console.log(searchListObj);
@@ -154,7 +154,7 @@
             for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
-                // productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
+                productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
                 productImage.setAttribute("src",jsonObj[i].image[j].imageUrl);
                 productImages.appendChild(productImage);
             }
@@ -192,8 +192,7 @@
 			  centerMode: true,
 			  variableWidth: true,
   			  asNavFor:  "#" + jsonObj[i].id,
-  			  focusOnSelect: true,
-  			  // centerPadding: '40px'
+  			  focusOnSelect: true
 			});
 
          $("#" + jsonObj[i].id).slick({
@@ -222,7 +221,7 @@
     xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
     xhr.onload = function(){
         let index = this.responseText.indexOf('[')
-        jsonData = this.responseText.substr(index);
+        let jsonData = this.responseText.substr(index);
         console.log(jsonData);
         let searchListObj = JSON.parse(jsonData);
         console.log(searchListObj);
@@ -241,10 +240,12 @@
         e.preventDefault();
         let keyWord = document.getElementById('sideBarSearchKeyWord').value;
         let xhr = new XMLHttpRequest();
-        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+keyWord, true);
+        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+keyWord + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
         xhr.onload = function(){
-            console.log(this.responseText);
-            let searchListObj = JSON.parse(this.responseText);
+            let index = this.responseText.indexOf('[')
+            let jsonData = this.responseText.substr(index);
+            console.log(jsonData);
+            let searchListObj = JSON.parse(jsonData);
             console.log(searchListObj);
             indexSearch(searchListObj);
         }

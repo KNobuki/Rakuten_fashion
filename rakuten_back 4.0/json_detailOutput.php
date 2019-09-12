@@ -1,7 +1,7 @@
 
 <?php
     if(isset($_GET['itemID'])){
-        $merge_list = GoodsMerge($_GET['itemID'],$_GET['seachMaxPrice'],$_GET['searchMinPrice']);
+        $merge_list = GoodsMerge($_GET['itemID']);
 
         $Data = DataSet($merge_list);
         ob_clean();
@@ -96,7 +96,7 @@
     }
     
     ###same goods merge##########################################################
-    function GoodsMerge($ID,$min_price,$max_price){
+    function GoodsMerge($ID){
         $i = 1; $MergeList = [];
             $rakuten_relust = getRakutenResult($ID,$min_price,$max_price); // キーワードと最低価格を指定
             foreach ( (array)$rakuten_relust as $item):
@@ -121,8 +121,6 @@
         $params = array();
         $params['applicationId'] = '1066483623417999424'; // アプリID
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
-        $params['minPrice'] = $min_price;
-        $params['maxPrice'] = $max_price;
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
