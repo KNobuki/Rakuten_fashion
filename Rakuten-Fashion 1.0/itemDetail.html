@@ -94,22 +94,43 @@
 				</div>
 				<div id="itemDesc" class="col-6">
 					<script type="text/javascript">
-						let theme = document.createElement("h3");
-						theme.innerText = "Description"
-						theme.setAttribute("class", "theme");
-						let description = document.createElement("h4");
-						description.innerText = "hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge";
-						description.setAttribute("class", "description");
-						let ptheme = document.createElement("h3");
-						ptheme.innerText = "Price"
-						ptheme.setAttribute("class", "ptheme");
-						let price = document.createElement("h3");
-						price.innerText = "20~24$"
-						price.setAttribute("class", "price");
-						itemDesc.appendChild(ptheme);
-						itemDesc.appendChild(price);
-						itemDesc.appendChild(theme);
-						itemDesc.appendChild(description);
+						function itemInfoList(jsonObj){
+							let theme = document.createElement("h3");
+							theme.innerText = "Description"
+							theme.setAttribute("class", "theme");
+							let description = document.createElement("h4");
+							description.innerText = jsonObj[0]["itemCaption"];
+							description.setAttribute("class", "description");
+							let ptheme = document.createElement("h3");
+							ptheme.innerText = "Price"
+							ptheme.setAttribute("class", "ptheme");
+							let price = document.createElement("h3");
+							let min_price = jsonObj[0]["min_price"];
+							let max_price = jsonObj[0]["max_price"];
+							if (min_price == max_price) {
+								price.innerText = "￥" + jsonObj[0]["min_price"];	
+							} else {
+								price.innerText ="￥" + jsonObj[0]["min_price"] + "~￥" + jsonObj[0]["max_price"];
+							}
+							
+							price.setAttribute("class", "price");
+							let form = document.createElement("form");
+							form.setAttribute("class", "ps-search--header");
+							form.setAttribute("action", "do_action");
+							form.setAttribute("method", "post");
+							let btn = document.createElement("button");
+							btn.setAttribute("type", "button");
+							btn.setAttribute("onclick", "location.href='./searchList.html'");
+							btn.setAttribute("class", "btn btn-default");
+							btn.setAttribute("id", "similarItem");
+							btn.innerText = "Similar Items";
+							form.appendChild(btn);
+							itemDesc.appendChild(ptheme);
+							itemDesc.appendChild(price);
+							itemDesc.appendChild(theme);
+							itemDesc.appendChild(description);
+							itemDesc.appendChild(form);
+						}
 					</script>
 					<form class="ps-search--header" action="do_action" method="post">
 					  	<button type="button" onclick="location.href='./searchList.html'" class="btn btn-default" id="similarItem" >Similar Items</button>

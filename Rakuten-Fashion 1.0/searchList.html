@@ -28,9 +28,9 @@
 		<span id="logo">Rakuten Fashion</span>
 		<div class="siderbar-search-box" id="searchTop">
 			<form class="sidebar-search-box" id ="getForm">
-                <input class="form-control" type="text" data-role='tags-input'/>
-                <!-- <button class="btn btn-default">search<button/> -->
-        </form>
+                <input id="sideBarSearchKeyWord" style="width:300px; height:30px; margin: 3px" type="text"/>
+                <input style="width:100px; height:30px; margin: 3px"class="btn btn-default" type="submit" method = "get" value="submit"/>
+            </form>
 		</div>
 	</div>
 
@@ -116,8 +116,9 @@
 
      function indexSearch(jsonObj) {
         var searchList = document.getElementById("searchList");
-        let itemNumber = 12;
-        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
+        searchList.innerHTML = '';
+        let itemNumber = 15;
+        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 410 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
             let productBox = document.createElement("div");
             productBox.setAttribute("class", "productbox");
@@ -207,5 +208,20 @@
         let url = "itemDetail.html?id=" + obj.id;
         window.open(url);
     }
+
+    document.getElementById("getForm").addEventListener("submit",getForm);
+    function getForm(e){
+        e.preventDefault();
+        let keyWord = document.getElementById('sideBarSearchKeyWord').value;
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+keyWord, true);
+        xhr.onload = function(){
+            console.log(this.responseText);
+            let searchListObj = JSON.parse(this.responseText);
+            console.log(searchListObj);
+            indexSearch(searchListObj);
+        }
+        xhr.send();
+   }
 
 </script>
