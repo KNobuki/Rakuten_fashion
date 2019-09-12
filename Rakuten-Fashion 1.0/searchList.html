@@ -216,7 +216,7 @@
     }
     console.log(result);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&searchminPrice=" + minPrice + "&searchMaxPrice=" + maxPrice, true);
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
     xhr.onload = function(){
         console.log(this.responseText);
         let searchListObj = JSON.parse(this.responseText);
