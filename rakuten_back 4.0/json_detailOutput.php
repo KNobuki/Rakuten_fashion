@@ -33,6 +33,8 @@
                      "image" =>$imageURL,
                      "pointRate" => $item['pointRate'],
                      "itemCaption" => $item['itemCaption'],
+                     "catchcopy" => $item['catchcopy'],
+                     "shopName" => $item['shopName'],
                      );
             $color_code = []; $color_map = [];$brand_map = [];
             foreach((array)$item['tagId'] as $number){
@@ -149,6 +151,8 @@
                              'Genre' => (string)$item->Item->genreId,
                              'pointRate' => (string)$item->Item->pointRate,
                              'itemCaption' => (string)$item->Item->itemCaption,
+                             'catchcopy' => (string)$item->Item->catchcopy,
+                             'shopName' =>  (string)$item->Item->shopName,
                              );
         }return $items;
         
