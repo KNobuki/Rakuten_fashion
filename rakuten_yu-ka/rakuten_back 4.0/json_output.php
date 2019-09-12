@@ -1,41 +1,41 @@
 
 <?php
-    if(isset($_GET['itemID'])){
-        $merge_list = GoodsMerge($_GET['itemID'],$_GET['seachMaxPrice'],$_GET['searchMinPrice']);
+    //search_brand(1000873);
+    if(isset($_GET['keyWord'])){
+        $merge_list = GoodsMerge($_GET['keyWord'],5000);
 
         $Data = DataSet($merge_list);
         ob_clean();
         echo $Data;
    }
+    
 
 ##以下関数定義#########
     function DataSet($merge_list){
-        $data_map = []; $costList = [];
-        foreach ((array)$merge_list as $item){
-            array_push($costList,$item['price']);
-            $max_price = max($costList);
-            $min_price = min($costList);
-        }
+        $data_map = [];$i = 0;
         foreach ((array)$merge_list as $item):
-            // 画像の縮小パラメータを除去
-            $imageURL = [];
-            for($imgCnt = 0; $imgCnt < count($item['ImageUrls']); $imgCnt++){
-                $explodeImageUrls = explode("?",$item['ImageUrls'][$imgCnt]->imageUrl);//画像に付属したサムネイル情報を除去
-                array_push($imageURL,$explodeImageUrls[0]);
-            }
-            $goodsID = explode("/",$item['url']);
-            $goodsID = $goodsID[count($goodsID)-2];
-            $map = array(///////ここに全部追加
-                     "ID" => $goodsID,
+        $i++;
+        $explode_urls = explode("/",$merge_list[$i-1]['url']);
+        if(count($item['ImageUrls'])>0){
+        $map = array(///////ここに全部追加
+                     "id" => $explode_urls[count($explode_urls)-2],
                      "price" =>$item['price'],
-                     "max_price" => $max_price,
-                     "min_price" => $min_price,
-                     "image" =>$imageURL,
-                     "pointRate" => $item['pointRate'],
-                     "itemCaption" => $item['itemCaption'],
-                     "catchcopy" => $item['catchcopy'],
-                     "shopName" => $item['shopName'],
+                     "image" =>$item['ImageUrls'],
+                     "genre" =>$item['Genre'],
+
                      );
+        }else{
+            $map = array(///////ここに全部追加
+                         "id" => $explode_urls[count($explode_urls)-2],
+                         "price" =>$item['price'],
+                         "image" =>"https://cdn.fotoagent.dk/accumolo/production/ci/master/1.2732.0//images/noimage_2_small.jpg",
+                         );
+        }/*
+        if($map["image"]==NULL){
+            $noimage = [];
+            $noimage[0] = "https://cdn.fotoagent.dk/accumolo/production/ci/master/1.2732.0//images/noimage_2_small.jpg";
+            $map["image"] =  $noimage;
+        }*/
             $color_code = []; $color_map = [];$brand_map = [];
             foreach((array)$item['tagId'] as $number){
                 for($j = 1000873; $j <= 1000887; $j++){
@@ -88,7 +88,7 @@
         array_push($data_map, $map);
      
         endforeach;
-        $json_data = json_encode($data_map,JSON_UNESCAPED_UNICODE);
+        $json_data = json_encode($data_map);
 
         return $json_data;
        // $json_data = json_encode($map);
@@ -96,16 +96,17 @@
     }
     
     ###same goods merge##########################################################
-    function GoodsMerge($ID,$min_price,$max_price){
-        $i = 1; $MergeList = [];
-            $rakuten_relust = getRakutenResult($ID,$min_price,$max_price); // キーワードと最低価格を指定
+    function GoodsMerge($keyword,$min_price){
+        $i = 1; $MergeList = []; $aleadyExistsItemList = [];$args = [];
+            $rakuten_relust = getRakutenResult($keyword,$min_price); // キーワードと最低価格を指定
             foreach ( (array)$rakuten_relust as $item):
                 $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
-                $item_id = $explode_urls[count($explode_urls)-2];
-                if($item_id != $ID){
+                $is_merge_item = in_array($explode_urls[count($explode_urls)-2], $args);
+                if($is_merge_item){
                     $i++;
                     continue;
                 }
+                array_push($args, $explode_urls[count($explode_urls)-2]);
                 array_push($MergeList, $item);
         $i++;
             //$MergeJson = json_encode($MergeList);
@@ -114,7 +115,7 @@
     }
     
     #########商品検索API検索##############################################################################
-    function getRakutenResult($keyword,$min_price,$max_price) {
+    function getRakutenResult($keyword,$min_price) {
         
         // ベースとなるリクエストURL
         $baseurl = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222';
@@ -122,13 +123,11 @@
         $params['applicationId'] = '1066483623417999424'; // アプリID
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
         $params['minPrice'] = $min_price;
-        $params['maxPrice'] = $max_price;
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
         $canonical_string='';
-
-        
+        $cloth = array("100371","551177","566222","566223","304083","216133", "100433","216131","558885","100533","110729","206168","213755", "110765","558846","558873","558863","100372","566031","110811’,303535","509223","409065","409335","403832","303526","551186","555086","555089","555087","110729","553029","555083","555084","555091","200074","553036","100428","409165","210800","509252","303735","409365","564338","566016","403911","101801","100480","110983","216172","559278","216134","216135","216136","304083","110993","111078","111102","111116","566733");
         foreach($params as $k => $v) {
             $canonical_string .= '&' . $k . '=' . $v;
         }
@@ -140,6 +139,7 @@
         $rakuten_json=json_decode(@file_get_contents($url, true));
         $items = array();
         foreach($rakuten_json->Items as $item) {
+             if(in_array((string)$item->Item->genreId, $cloth)){
             $items[] = array(
                              'name' => (string)$item->Item->itemName,
                              'url' => (string)$item->Item->itemUrl,
@@ -149,12 +149,10 @@
                              'tagId' => (array)$item->Item->tagIds,
                              'ImageUrls' => (array)$item->Item->mediumImageUrls,
                              'CatchCopy'=> (string)$item->Item->catchcopy,
-                             'Genre' => (string)$item->Item->genreId,
-                             'pointRate' => (string)$item->Item->pointRate,
-                             'itemCaption' => (string)$item->Item->itemCaption,
-                             'catchcopy' => (string)$item->Item->catchcopy,
-                             'shopName' =>  (string)$item->Item->shopName,
+                             'Genre'=> (string)$item->Item->genreId,
+                             
                              );
+       }
         }return $items;
         
         $image = array();

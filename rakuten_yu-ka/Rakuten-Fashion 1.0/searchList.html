@@ -28,9 +28,9 @@
 		<span id="logo">Rakuten Fashion</span>
 		<div class="siderbar-search-box" id="searchTop">
 			<form class="sidebar-search-box" id ="getForm">
-                <input id="sideBarSearchKeyWord" style="width:300px; height:30px; margin: 3px" type="text"/>
-                <input style="width:100px; height:30px; margin: 3px"class="btn btn-default" type="submit" method = "get" value="submit"/>
-            </form>
+                <input class="form-control" type="text" data-role='tags-input'/>
+                <!-- <button class="btn btn-default">search<button/> -->
+        </form>
 		</div>
 	</div>
 
@@ -95,13 +95,7 @@
 </html>
 
 <script>
-    var minPrice = 0,
-    maxPrice = 10000;
-    new Slider("#priceRange", { min: 0, max: 10000, value: [0, 10000], focus: true }).on('change', function (e) {
-        minPrice = e.newValue[0];
-        maxPrice = e.newValue[1];
-});
-
+    new Slider("#priceRange", { min: 0, max: 1000, value: [0, 1000], focus: true });
 
     $(document).ready(function() {
         $('[data-role="tags-input"]').tagsInput();
@@ -116,33 +110,14 @@
     }
 
     function sideBarSearch(jsonObj) {
-        var LocString=decodeURIComponent(String(window.document.location.href));
-        let keyWord = LocString.split("=");
-        let word = keyWord[1].split(";");
-        let result = "";
-        for(let i = 0; i < word.length; i++) {
-            if(word[i]) {
-                result += (word[i] + " ");
-            }
-        }
 
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&searchMinPrice=" + minPrice + "&searchMaxPrice=" + maxPrice, true);
-        xhr.onload = function(){
-            console.log(this.responseText);
-            let searchListObj = JSON.parse(this.responseText);
-            console.log(searchListObj);
-            indexSearch(searchListObj);
-        }
-        xhr.send();
     }
 
 
      function indexSearch(jsonObj) {
         var searchList = document.getElementById("searchList");
-        searchList.innerHTML = '';
-        let itemNumber = 15;
-        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 5) * 400 + "px;");
+        let itemNumber = 12;
+        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
             let productBox = document.createElement("div");
             productBox.setAttribute("class", "productbox");
@@ -152,7 +127,6 @@
             for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
-                productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
                 productImage.setAttribute("src",jsonObj[i].image[j].imageUrl);
                 productImages.appendChild(productImage);
             }
@@ -168,11 +142,19 @@
             for(let k = 0; k < jsonObj[i].image.length; k ++) {
                 let variant = document.createElement("img");
                 variant.setAttribute("class","variant");
-                variant.setAttribute("style","object-fit : contain;");
                 variant.setAttribute("src",jsonObj[i].image[k].imageUrl);
                 variants.appendChild(variant);
             }
-
+            // let id = document.createElement("input");
+            // id.setAttribute("type", "hidden");
+            // id.setAttribute("id", "itemId");
+            // id.setAttribute("value", jsonObj[i].id);
+            // let a = document.createElement("a");
+            // // a.setAttribute("href", "itemDetail.html");
+            // a.setAttribute("onclick", "OnLinkClick(this)");
+            // a.appendChild(id);
+            // a.appendChild(productImages);
+            // productBox.appendChild(a);
             productImages.setAttribute("onclick", "OnLinkClick(this)");
             productBox.appendChild(productImages);
             productBox.appendChild(variants);
@@ -208,15 +190,8 @@
     var LocString=decodeURIComponent(String(window.document.location.href));
     let keyWord = LocString.split("=");
     let word = keyWord[1].split(";");
-    let result = "";
-    for(let i = 0; i < word.length; i++) {
-        if(word[i]) {
-            result += (word[i] + " ");
-        }
-    }
-    console.log(result);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&searchminPrice=" + minPrice + "&searchMaxPrice=" + maxPrice, true);
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+word[0], true);
     xhr.onload = function(){
         console.log(this.responseText);
         let searchListObj = JSON.parse(this.responseText);
@@ -230,20 +205,5 @@
         let url = "itemDetail.html?id=" + obj.id;
         window.open(url);
     }
-
-    document.getElementById("getForm").addEventListener("submit",getForm);
-    function getForm(e){
-        e.preventDefault();
-        let keyWord = document.getElementById('sideBarSearchKeyWord').value;
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+keyWord, true);
-        xhr.onload = function(){
-            console.log(this.responseText);
-            let searchListObj = JSON.parse(this.responseText);
-            console.log(searchListObj);
-            indexSearch(searchListObj);
-        }
-        xhr.send();
-   }
 
 </script>

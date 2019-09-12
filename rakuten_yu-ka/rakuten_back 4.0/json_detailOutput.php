@@ -1,7 +1,7 @@
 
 <?php
     if(isset($_GET['itemID'])){
-        $merge_list = GoodsMerge($_GET['itemID'],$_GET['seachMaxPrice'],$_GET['searchMinPrice']);
+        $merge_list = GoodsMerge($_GET['itemID'],5000);
 
         $Data = DataSet($merge_list);
         ob_clean();
@@ -33,8 +33,6 @@
                      "image" =>$imageURL,
                      "pointRate" => $item['pointRate'],
                      "itemCaption" => $item['itemCaption'],
-                     "catchcopy" => $item['catchcopy'],
-                     "shopName" => $item['shopName'],
                      );
             $color_code = []; $color_map = [];$brand_map = [];
             foreach((array)$item['tagId'] as $number){
@@ -96,9 +94,9 @@
     }
     
     ###same goods merge##########################################################
-    function GoodsMerge($ID,$min_price,$max_price){
+    function GoodsMerge($ID,$min_price){
         $i = 1; $MergeList = [];
-            $rakuten_relust = getRakutenResult($ID,$min_price,$max_price); // キーワードと最低価格を指定
+            $rakuten_relust = getRakutenResult($ID,$min_price); // キーワードと最低価格を指定
             foreach ( (array)$rakuten_relust as $item):
                 $explode_urls = explode("/",$rakuten_relust[$i-1]['url']);
                 $item_id = $explode_urls[count($explode_urls)-2];
@@ -114,7 +112,7 @@
     }
     
     #########商品検索API検索##############################################################################
-    function getRakutenResult($keyword,$min_price,$max_price) {
+    function getRakutenResult($keyword,$min_price) {
         
         // ベースとなるリクエストURL
         $baseurl = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222';
@@ -122,7 +120,6 @@
         $params['applicationId'] = '1066483623417999424'; // アプリID
         $params['keyword'] = urlencode_rfc3986($keyword); // 任意のキーワード。※文字コードは UTF-8
         $params['minPrice'] = $min_price;
-        $params['maxPrice'] = $max_price;
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
         $params['hits'] = 30;
@@ -152,8 +149,6 @@
                              'Genre' => (string)$item->Item->genreId,
                              'pointRate' => (string)$item->Item->pointRate,
                              'itemCaption' => (string)$item->Item->itemCaption,
-                             'catchcopy' => (string)$item->Item->catchcopy,
-                             'shopName' =>  (string)$item->Item->shopName,
                              );
         }return $items;
         
