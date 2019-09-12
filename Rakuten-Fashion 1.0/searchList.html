@@ -128,6 +128,7 @@
             for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
+                productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
                 productImage.setAttribute("src",jsonObj[i].image[j].imageUrl);
                 productImages.appendChild(productImage);
             }
@@ -143,6 +144,7 @@
             for(let k = 0; k < jsonObj[i].image.length; k ++) {
                 let variant = document.createElement("img");
                 variant.setAttribute("class","variant");
+                variant.setAttribute("style","object-fit : contain;");
                 variant.setAttribute("src",jsonObj[i].image[k].imageUrl);
                 variants.appendChild(variant);
             }
