@@ -28,9 +28,9 @@
 		<span id="logo">Rakuten Fashion</span>
 		<div class="siderbar-search-box" id="searchTop">
 			<form class="sidebar-search-box" id ="getForm">
-                <input class="form-control" type="text" data-role='tags-input'/>
-                <!-- <button class="btn btn-default">search<button/> -->
-        </form>
+                <input id="sideBarSearchKeyWord" style="width:300px; height:30px; margin: 3px" type="text"/>
+                <input style="width:100px; height:30px; margin: 3px"class="btn btn-default" type="submit" method = "get" value="submit"/>
+            </form>
 		</div>
 	</div>
 
@@ -116,8 +116,9 @@
 
      function indexSearch(jsonObj) {
         var searchList = document.getElementById("searchList");
-        let itemNumber = 12;
-        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 400 + "px;");
+        searchList.innerHTML = '';
+        let itemNumber = 15;
+        searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 4) * 410 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
             let productBox = document.createElement("div");
             productBox.setAttribute("class", "productbox");
@@ -127,6 +128,7 @@
             for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
+                productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
                 productImage.setAttribute("src",jsonObj[i].image[j].imageUrl);
                 productImages.appendChild(productImage);
             }
@@ -142,6 +144,7 @@
             for(let k = 0; k < jsonObj[i].image.length; k ++) {
                 let variant = document.createElement("img");
                 variant.setAttribute("class","variant");
+                variant.setAttribute("style","object-fit : contain;");
                 variant.setAttribute("src",jsonObj[i].image[k].imageUrl);
                 variants.appendChild(variant);
             }
@@ -190,8 +193,15 @@
     var LocString=decodeURIComponent(String(window.document.location.href));
     let keyWord = LocString.split("=");
     let word = keyWord[1].split(";");
+    let result = "";
+    for(let i = 0; i < word.length; i++) {
+        if(word[i]) {
+            result += (word[i] + " ");
+        }
+    }
+    console.log(result);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+word[0], true);
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result, true);
     xhr.onload = function(){
         console.log(this.responseText);
         let searchListObj = JSON.parse(this.responseText);
@@ -205,5 +215,20 @@
         let url = "itemDetail.html?id=" + obj.id;
         window.open(url);
     }
+
+    document.getElementById("getForm").addEventListener("submit",getForm);
+    function getForm(e){
+        e.preventDefault();
+        let keyWord = document.getElementById('sideBarSearchKeyWord').value;
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+keyWord, true);
+        xhr.onload = function(){
+            console.log(this.responseText);
+            let searchListObj = JSON.parse(this.responseText);
+            console.log(searchListObj);
+            indexSearch(searchListObj);
+        }
+        xhr.send();
+   }
 
 </script>
