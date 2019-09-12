@@ -97,6 +97,7 @@
     function getForm(e){
         e.preventDefault();
         let keyWord = document.getElementById('searchKeyWord').value;
+        console.log(keyWord);
         var url = "searchList.html?keyWord="+keyWord;
         window.open(url)
    }
