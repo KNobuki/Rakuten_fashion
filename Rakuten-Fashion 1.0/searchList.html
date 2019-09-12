@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="plugins/slick/slick-theme.css">
 <link rel="stylesheet" href="CSS/style.css">
 <link rel="stylesheet" href="CSS/jquery-tagsinput.min.css">
+<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
 
 <script type="text/javascript" src="plugins/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
@@ -36,41 +37,42 @@
 
 	<div id="sideNav" class="sidenav">
 	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	  	<label><input name="Fruit" type="checkbox" value="" />A </label><br> 
-	  	<label><input name="Fruit" type="checkbox" value="" />B </label><br> 
-		<label><input name="Fruit" type="checkbox" value="" />C </label><br>
-		<label><input name="Fruit" type="checkbox" value="" />D </label><br>
+	  	<label style="color: white";><input name="Fruit" type="checkbox" value="" />Man </label><br> 
+	  	<label style="color: white";><input name="Fruit" type="checkbox" value="" />Woman </label><br> 
+		<label style="color: white";><input name="Fruit" type="checkbox" value="" />Child </label><br>
+		<label style="color: white";><input name="Fruit" type="checkbox" value="" />Other </label><br>
         <br>
         <div class="form-group form-group-sm">
-            <label class="col-sm-2 control-label" for="formGroupInputSmall">label</label>
-            <div class="col-sm-10">
+            <label class="col-sm-4 control-label" for="formGroupInputSmall" style="color: white;">Height</label>
+            <div class="col-sm-8">
                 <select class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option>~150cm</option>
+                  <option>150~160cm</option>
+                  <option>160~170cm</option>
+                  <option>170~180cm</option>
+                  <option>180cm~</option>
                 </select>
             </div>
         </div>
         <br>
         <br>
         <div class="form-group form-group-sm">
-            <label class="col-sm-2 control-label" for="formGroupInputSmall">label</label>
-            <div class="col-sm-10">
+            <label class="col-sm-4 control-label" for="formGroupInputSmall" style="color: white;">Color</label>
+            <div class="col-sm-8">
                 <select class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option>Red</option>
+                  <option>Blue</option>
+                  <option>Yellow</option>
+                  <option>White</option>
+                  <option>Black</option>
                 </select>
             </div>
         </div>
         <br>
         <br>
         <br>
-        <div style="text-align:center"><input id="priceRange" type="text"/></div>    
+        <div style="text-align:center"><input id="priceRange" type="text"/></div>
+        <p style="text-align: center; color: white;">Price Range</p>
         <br>
         <br>
 		<button class="btn btn-default center-block " onclick="sideBarSearch()">Search</button>
@@ -95,7 +97,7 @@
 </html>
 
 <script>
-    var minPrice = 0,
+    var minPrice = 1000,
     maxPrice = 10000;
     new Slider("#priceRange", { min: 0, max: 10000, value: [0, 10000], focus: true }).on('change', function (e) {
         minPrice = e.newValue[0];
@@ -127,10 +129,12 @@
         }
 
         let xhr = new XMLHttpRequest();
-        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&searchMinPrice=" + minPrice + "&searchMaxPrice=" + maxPrice, true);
+        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
         xhr.onload = function(){
-            console.log(this.responseText);
-            let searchListObj = JSON.parse(this.responseText);
+            let index = this.responseText.indexOf('[')
+            let jsonData = this.responseText.substr(index);
+            console.log(jsonData);
+            let searchListObj = JSON.parse(jsonData);
             console.log(searchListObj);
             indexSearch(searchListObj);
         }
@@ -141,7 +145,7 @@
      function indexSearch(jsonObj) {
         var searchList = document.getElementById("searchList");
         searchList.innerHTML = '';
-        let itemNumber = 15;
+        let itemNumber = jsonObj.length < 15? jsonObj.length : 15;
         searchList.setAttribute("style", "height : " + Math.ceil(itemNumber / 5) * 400 + "px;");
         for(let i = 0; i < itemNumber; i ++) {
             let productBox = document.createElement("div");
@@ -152,7 +156,7 @@
             for(let j = 0; j < jsonObj[i].image.length; j ++) {
                 let productImage = document.createElement("img");
                 productImage.setAttribute("class","productImage");
-                // productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
+                productImage.setAttribute("style","max-height : " + 200 + "px;" + "object-fit : contain;");
                 productImage.setAttribute("src",jsonObj[i].image[j].imageUrl);
                 productImages.appendChild(productImage);
             }
@@ -190,8 +194,7 @@
 			  centerMode: true,
 			  variableWidth: true,
   			  asNavFor:  "#" + jsonObj[i].id,
-  			  focusOnSelect: true,
-  			  // centerPadding: '40px'
+  			  focusOnSelect: true
 			});
 
          $("#" + jsonObj[i].id).slick({
@@ -217,10 +220,12 @@
     }
     console.log(result);
     let xhr = new XMLHttpRequest();
-    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&searchminPrice=" + minPrice + "&searchMaxPrice=" + maxPrice, true);
+    xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+result + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
     xhr.onload = function(){
-        console.log(this.responseText);
-        let searchListObj = JSON.parse(this.responseText);
+        let index = this.responseText.indexOf('[')
+        let jsonData = this.responseText.substr(index);
+        console.log(jsonData);
+        let searchListObj = JSON.parse(jsonData);
         console.log(searchListObj);
         indexSearch(searchListObj);
     }
@@ -237,10 +242,12 @@
         e.preventDefault();
         let keyWord = document.getElementById('sideBarSearchKeyWord').value;
         let xhr = new XMLHttpRequest();
-        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+keyWord, true);
+        xhr.open("GET","../rakuten_back 4.0/json_output.php?keyWord="+keyWord + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
         xhr.onload = function(){
-            console.log(this.responseText);
-            let searchListObj = JSON.parse(this.responseText);
+            let index = this.responseText.indexOf('[')
+            let jsonData = this.responseText.substr(index);
+            console.log(jsonData);
+            let searchListObj = JSON.parse(jsonData);
             console.log(searchListObj);
             indexSearch(searchListObj);
         }
