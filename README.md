@@ -13,7 +13,7 @@ Clone this repository under "⁨XAMPP⁩/⁨xamppfiles⁩/⁨htdocs⁩/".
   2. Start "Apache Web Server" in "Manage Servers".
 
 3. See Web pages
-  1. Open `http://localhost/RakutenFashion_final/Rakuten-Fashion%201.0/index.html` from your browser.
+  1. Open `http://localhost/Rakuten_fashion/Rakuten-Fashion%201.0/index.html` from your browser.
   2. Type item name (ex. slipper) in search box located in the center and type "enter". And click "search" button. Then, you move to "searchList.html" which show the result of searching with your keyword.
   3. Click item which you are looking for. Then, you move to "itemDetail.html". You can see the item detail (price, shops, description)
 
