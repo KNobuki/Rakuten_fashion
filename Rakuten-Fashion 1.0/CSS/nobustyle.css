@@ -120,3 +120,7 @@
 .showmore_content { position:relative; overflow:hidden; }
 .showmore_trigger { width:100%; height:45px; line-height:45px; cursor:pointer; }
 .showmore_trigger span { display:block; }
+
+#content {
+	min-height: 500px;
+}

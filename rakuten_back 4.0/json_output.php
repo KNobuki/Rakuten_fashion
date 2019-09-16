@@ -108,7 +108,7 @@
         $params['maxPrice'] = $maxPrice;
         $params['sort'] = urlencode_rfc3986('+itemPrice'); // ソートの方法。※文字コードは UTF-8
         $params['shopcode'] = 'kbf-rba'; //RBAのデータのみ取得
-        $params['hits'] = 30;
+        $params['hits'] = 10;
         $canonical_string='';
         
         foreach($params as $k => $v) {
